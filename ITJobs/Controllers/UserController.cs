@@ -29,7 +29,11 @@ namespace ITJobs.Controllers
             {
                 return Ok("Register Successfully");
             }
-            return BadRequest("Error.Please try again!");
+            else
+            {
+                return BadRequest("Error.Please try again!");
+            }
+           
         }
     }
 }

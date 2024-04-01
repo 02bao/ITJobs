@@ -17,6 +17,7 @@ namespace ITJobs
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddDbContext<DataContext>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             var app = builder.Build();
