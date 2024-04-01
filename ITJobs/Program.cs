@@ -1,4 +1,8 @@
 
+using ITJobs.Data;
+using ITJobs.Interface;
+using ITJobs.Repository;
+
 namespace ITJobs
 {
     public class Program
@@ -13,7 +17,8 @@ namespace ITJobs
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddDbContext<DataContext>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

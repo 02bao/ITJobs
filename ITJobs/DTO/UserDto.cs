@@ -1,6 +1,6 @@
-﻿namespace ITJobs.Models
+﻿namespace ITJobs.DTO
 {
-    public class User
+    public class UserDto
     {
         public long Id { get; set; } = DateTime.UtcNow.Ticks / 100;
         public string UserName { get; set; }
