@@ -9,6 +9,7 @@ namespace ITJobs.Mapper
         public Mapping()
         {
             CreateMap<UserDTO, User>();
+            CreateMap<User, UserDTO>();
         }
     }
 }

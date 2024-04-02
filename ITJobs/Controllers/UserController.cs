@@ -31,5 +31,12 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Failed, Please try again!");
         }
+
+        [HttpGet("GetList")]
+        public IActionResult GetList()
+        {
+            var user = _mapper.Map<List<UserDTO>>(_userRepository.GetUsers());
+            return Ok(user);
+        }
     }
 }
