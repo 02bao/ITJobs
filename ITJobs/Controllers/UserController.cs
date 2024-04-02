@@ -38,5 +38,24 @@ namespace ITJobs.Controllers
             var user = _mapper.Map<List<UserDTO>>(_userRepository.GetUsers());
             return Ok(user);
         }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(long userid)
+        {
+            var user = _mapper.Map<UserDTO>(_userRepository.GetById(userid));
+            return Ok(user);
+        }
+
+        [HttpPost("Login")]
+        public IActionResult Login([FromBody] UserDTO _DTO)
+        {
+            var users = _mapper.Map<User_login>(_DTO);
+            var userlogin = _userRepository.Login(users);
+            if(userlogin > 0)
+            {
+                return Ok(userlogin);
+            }
+            return BadRequest("Login Failed, Please Try again!");
+        }
     }
 }

@@ -15,12 +15,23 @@ namespace ITJobs.Repository
 
         public User GetById(long userid)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(s => s.Id == userid);
         }
 
         public ICollection<User> GetUsers()
         {
             return _context.Users.ToList();
+        }
+
+        public long Login(User_login userlogin)
+        {
+            var users = _context.Users.FirstOrDefault(u => u.UserName == userlogin.UserName
+                                        && u.Password == userlogin.Password);
+            if(users == null)
+            {
+                return -1;
+            }
+            return users.Id;
         }
 
         public bool Register(User users)

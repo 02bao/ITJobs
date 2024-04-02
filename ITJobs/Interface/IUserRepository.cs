@@ -7,6 +7,6 @@ namespace ITJobs.Interface
         bool Register(User users);
         ICollection<User> GetUsers();
         User GetById(long userid);
-
+        long Login(User_login userlogin);
     }
 }
