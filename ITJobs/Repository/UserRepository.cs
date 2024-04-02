@@ -12,7 +12,7 @@ namespace ITJobs.Repository
         {
             _context = context;
         }
-        public bool Register(User users)
+        public bool Register(User_Register users)
         {
             var useremail = _context.Users.SingleOrDefault(s => s.Email == users.Email);
             if(useremail != null)
