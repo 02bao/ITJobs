@@ -12,7 +12,35 @@ namespace ITJobs.Repository
         {
             _context = context;
         }
-        public bool Register(User_Register users)
+
+        //public bool Delete(long userid)
+        //{
+        //    User user = _context.Users.FirstOrDefault( s => s.Id == userid );
+        //    if( user == null )
+        //    {
+        //        return false;
+        //    }
+        //    _context.Users.Remove( user );
+        //    _context.SaveChanges();
+        //    return true;
+        //}
+
+        //public User GetById(long userid)
+        //{
+        //    return _context.Users.FirstOrDefault( u => u.Id == userid );
+        //}
+
+        //public ICollection<User> GetUsers()
+        //{
+        //    return _context.Users.ToList();
+        //}
+
+        //public long Login(User_login user)
+        //{
+        //    var users = _context.Users.Where()
+        //}
+
+        public bool Register(User users)
         {
             var useremail = _context.Users.SingleOrDefault(s => s.Email == users.Email);
             if(useremail != null)
@@ -24,11 +52,16 @@ namespace ITJobs.Repository
                 UserName = users.UserName,
                 Email = users.Email,
                 Password = users.Password,
-                Role = "",
+                Role = users.Role,
             };
             _context.Users.Add(user);
             _context.SaveChanges();
             return true;
         }
+
+        //public bool Update(User_Update user)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

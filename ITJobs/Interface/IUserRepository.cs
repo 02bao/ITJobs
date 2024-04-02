@@ -4,10 +4,12 @@ namespace ITJobs.Interface
 {
     public interface IUserRepository
     {
-        bool Register(User_Register users);
-        ICollection<User> GetUsers();
-        User GetById(long userid);
-        bool Login(User_login user);
-        bool Del
+        bool Register(User users);
+        //ICollection<User> GetUsers();
+        //User GetById(long userid);
+        //long Login(User_login user);
+        //bool Update(User_Update user);
+        //bool Delete(long userid);
+
     }
 }

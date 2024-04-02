@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITJobs.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240402060705_1")]
+    [Migration("20240402064219_1")]
     partial class _1
     {
         /// <inheritdoc />
