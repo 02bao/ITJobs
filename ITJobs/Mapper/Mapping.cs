@@ -8,10 +8,8 @@ namespace ITJobs.Mapper
     {
         public Mapping()
         {
+            CreateMap<User , UserDTO>();
             CreateMap<UserDTO, User>();
-            CreateMap<User, UserDTO>();
-            CreateMap<User_login, UserDTO>();
-            CreateMap<UserDTO, User_login>();
         }
     }
 }

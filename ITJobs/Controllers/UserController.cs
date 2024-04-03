@@ -14,48 +14,62 @@ namespace ITJobs.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UserController(IUserRepository userRepository, IMapper mapper )
+        public UserController(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
         }
 
         [HttpPost("Register")]
-        public IActionResult Register( [FromBody] UserDTO _DTO) 
+        public IActionResult Register([FromBody] UserDTO _DTO)
         {
-            var user = _mapper.Map<User>(_DTO);
-            bool tmp = _userRepository.Register(user);
+            var users = _mapper.Map<User>(_DTO);
+            bool tmp = _userRepository.Register(users);
             if(tmp)
             {
-                return Ok("Register Successfully");
+                return Ok("Register Succesfully");
             }
-            return BadRequest("Failed, Please try again!");
+            return BadRequest("Register Failed, Please try again!");
         }
 
         [HttpGet("GetList")]
         public IActionResult GetList()
         {
-            var user = _mapper.Map<List<UserDTO>>(_userRepository.GetUsers());
-            return Ok(user);
+            var users = _mapper.Map<List<UserDTO>>(_userRepository.GetAll());
+
+            return Ok(users);
         }
 
         [HttpGet("GetById")]
         public IActionResult GetById(long userid)
         {
-            var user = _mapper.Map<UserDTO>(_userRepository.GetById(userid));
+            var user = _mapper.Map<User>(_userRepository.GetById(userid));
             return Ok(user);
         }
 
         [HttpPost("Login")]
-        public IActionResult Login([FromBody] UserDTO _DTO)
-        {
-            var users = _mapper.Map<User_login>(_DTO);
-            var userlogin = _userRepository.Login(users);
-            if(userlogin > 0)
+        public IActionResult Login(User_login user) 
+        { 
+            var users = _userRepository.Login(user);
+            if(users > 0)
             {
-                return Ok(userlogin);
+                return Ok(users);
             }
-            return BadRequest("Login Failed, Please Try again!");
+            return BadRequest("Login Failed, Please try again!");
+
         }
+
+        [HttpPut("Update")]
+        public IActionResult Update( [FromBody] UserDTO _DTO)
+        {
+            var user = _mapper.Map<User>(_DTO);
+            bool tmp = _userRepository.Update(user);
+            if (tmp)
+            {
+                 return Ok("Update Successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+        }
+
     }
 }

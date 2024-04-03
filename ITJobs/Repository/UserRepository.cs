@@ -13,45 +13,51 @@ namespace ITJobs.Repository
             _context = context;
         }
 
+        public ICollection<User> GetAll()
+        {
+            return _context.Users.ToList();
+        }
+
         public User GetById(long userid)
         {
             return _context.Users.FirstOrDefault(s => s.Id == userid);
         }
 
-        public ICollection<User> GetUsers()
+        public long Login(User_login users)
         {
-            return _context.Users.ToList();
-        }
-
-        public long Login(User_login userlogin)
-        {
-            var users = _context.Users.FirstOrDefault(u => u.UserName == userlogin.UserName
-                                        && u.Password == userlogin.Password);
-            if(users == null)
+            User user = _context.Users.Where( s => s.UserName == users.UserName 
+                                        && s.Password == users.Password).FirstOrDefault();
+            if (user != null)
             {
-                return -1;
+                return user.Id;
             }
-            return users.Id;
+            return -1;
         }
 
-        public bool Register(User users)
+        public bool Register(User user)
         {
-            var useremail = _context.Users.SingleOrDefault(s => s.Email == users.Email);
+            User useremail = _context.Users.FirstOrDefault(s => s.Email == user.Email);
             if(useremail != null)
             {
                 return false;
             }
-            User user = new User()
+            User users = new User
             {
-                UserName = users.UserName,
-                Email = users.Email,
-                Password = users.Password,
-                Role = users.Role,
+                UserName = user.UserName,
+                Email = user.Email,
+                Password = user.Password,
+                Role = user.Role,
             };
-            _context.Users.Add(user);
+            _context.Users.Add(users);
             _context.SaveChanges();
             return true;
         }
 
+        public bool Update(User user)
+        {
+           _context.Users.Update(user);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }
