@@ -13,6 +13,18 @@ namespace ITJobs.Repository
             _context = context;
         }
 
+        public bool Delete(long userid)
+        {
+            User user = _context.Users.FirstOrDefault(s => s.Id ==  userid);
+            if(user == null)
+            {
+                return false;
+            }
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return true;
+        }
+
         public ICollection<User> GetAll()
         {
             return _context.Users.ToList();

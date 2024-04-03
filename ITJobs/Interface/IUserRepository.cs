@@ -9,5 +9,6 @@ namespace ITJobs.Interface
         User GetById(long userid);
         long Login(User_login users);
         bool Update(User user);
+        bool Delete(long userid);
     }
 }
