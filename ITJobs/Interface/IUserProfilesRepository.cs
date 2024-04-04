@@ -7,6 +7,7 @@ namespace ITJobs.Interface
         bool CreateUserProfiles(long userid , UserProfiles users);
         ICollection<UserProfiles> GetAll();
         UserProfiles GetById(long userprofileId);
-        bool GetByUserId(long userId);  
+        List<UserProfiles> GetByUserId(long userId);  
+        bool Update(UserProfiles userprofile, IFormFile avaterfile);
     }
 }

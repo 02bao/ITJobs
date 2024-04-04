@@ -44,5 +44,24 @@ namespace ITJobs.Controllers
             var users = _mapper.Map<UserProfilesDTO>(_userProfilesRepository.GetById(userprofileId));
             return Ok(users);
         }
+
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId(long userid)
+        {
+            var users = _mapper.Map<List<UserProfilesDTO>>(_userProfilesRepository.GetByUserId(userid));
+            return Ok(users);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromBody] UserProfilesDTO _DTO,[FromForm] IFormFile avatarfile) 
+        {
+            var user = _mapper.Map<UserProfiles>(_DTO);
+            bool tmp = _userProfilesRepository.Update(user, avatarfile);
+            if(tmp)
+            {
+                return Ok("Update Succesfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+        }
     }
 }

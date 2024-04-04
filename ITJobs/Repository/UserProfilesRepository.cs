@@ -42,9 +42,45 @@ namespace ITJobs.Repository
             return _context.UserProfiles.SingleOrDefault(s => s.Id == userprofileId);
         }
 
-        public bool GetByUserId(long userId)
+        public List<UserProfiles> GetByUserId(long userId)
         {
-            throw new NotImplementedException();
+            List<UserProfiles> response = new List<UserProfiles>();
+            var users = _context.UserProfiles.Where(s => s.User.Id == userId).ToList();
+            foreach( var profile in users)
+            {
+                response.Add(new UserProfiles
+                {
+                    Id = profile.Id,
+                    FullName = profile.FullName,
+                    Phone = profile.Phone,
+                    Address = profile.Address,
+                    Avatar = profile.Avatar,
+                });
+            }
+            return response;
+        }
+
+        public bool Update(UserProfiles userprofile, IFormFile avaterfile)
+        {
+            var users = _context.UserProfiles.SingleOrDefault( s=> s.Id == userprofile.Id);
+            if(users == null)
+            {
+                return false;
+            }
+            users.FullName = userprofile.FullName;
+            users.Phone = userprofile.Phone;
+            users.Address = userprofile.Address;
+            if (users.Avatar.Any())
+            {
+                CloudinaryRepository cloudinary = new CloudinaryRepository();
+                string imageUrl = cloudinary.uploadImage(avaterfile).Result;
+                if(!string.IsNullOrEmpty(imageUrl))
+                {
+                    users.Avatar = imageUrl;
+                }
+            }
+            _context.SaveChanges();
+            return true;
         }
     }
 }
