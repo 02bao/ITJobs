@@ -30,5 +30,19 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Create Failed, Please try again!");
         }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var users = _mapper.Map<List<UserProfilesDTO>>(_userProfilesRepository.GetAll());
+            return Ok(users);
+        }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(long userprofileId)
+        {
+            var users = _mapper.Map<UserProfilesDTO>(_userProfilesRepository.GetById(userprofileId));
+            return Ok(users);
+        }
     }
 }

@@ -31,5 +31,20 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public ICollection<UserProfiles> GetAll()
+        {
+            return _context.UserProfiles.ToList();
+        }
+
+        public UserProfiles GetById(long userprofileId)
+        {
+            return _context.UserProfiles.SingleOrDefault(s => s.Id == userprofileId);
+        }
+
+        public bool GetByUserId(long userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
