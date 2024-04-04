@@ -20,6 +20,7 @@ namespace ITJobs
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddDbContext<DataContext>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserProfilesRepository, UserProfilesRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
