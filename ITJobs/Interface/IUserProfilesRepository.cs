@@ -9,5 +9,6 @@ namespace ITJobs.Interface
         UserProfiles GetById(long userprofileId);
         List<UserProfiles> GetByUserId(long userId);  
         bool Update(UserProfiles userprofile, List<IFormFile> avaterfile);
+        bool Delete(long userid);
     }
 }

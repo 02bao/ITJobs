@@ -32,6 +32,18 @@ namespace ITJobs.Repository
             return true;
         }
 
+        public bool Delete(long userprofileid)
+        {
+            UserProfiles users = _context.UserProfiles.SingleOrDefault(s => s.Id == userprofileid);
+            if(users == null)
+            {
+                return false;
+            }
+            _context.UserProfiles.Remove(users);
+            _context.SaveChanges();
+            return true;
+        }
+
         public ICollection<UserProfiles> GetAll()
         {
             return _context.UserProfiles.ToList();

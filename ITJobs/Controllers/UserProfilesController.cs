@@ -63,5 +63,16 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Update Failed, Please try again!");
         }
+
+        [HttpDelete("Delete")]
+        public IActionResult Delete(long userprofileid)
+        {
+            bool tmp = _userProfilesRepository.Delete(userprofileid);
+            if(tmp)
+            {
+                return Ok("Delete Successfully");
+            }
+            return BadRequest("Delete Failed, Please try again");
+        }
     }
 }
