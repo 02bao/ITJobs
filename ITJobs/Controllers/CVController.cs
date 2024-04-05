@@ -53,10 +53,10 @@ namespace ITJobs.Controllers
         }
 
         [HttpPut("Update")]
-        public IActionResult Update([FromForm] CVDTO _DTO, [FromForm] List<string> files) 
+        public IActionResult Update([FromForm] CVDTO _DTO) 
         {
             var cvs = _mapper.Map<CV>(_DTO);
-            bool tmp = _cVRepository.Update(cvs, files);
+            bool tmp = _cVRepository.Update(cvs);
             if( tmp) 
             {
                 return Ok("Update Successfully");

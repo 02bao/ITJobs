@@ -8,7 +8,7 @@ namespace ITJobs.Interface
         CV GetById(long CvId);
         List<CV> GetByUserId(long UserId);
         ICollection<CV> GetAll();
-        bool Update(CV cv, List<string> files);
+        bool Update(CV cv);
         bool Delete(long CvId);
     }
 }

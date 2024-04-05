@@ -74,7 +74,7 @@ namespace ITJobs.Repository
             return response;
         }
 
-        public bool Update(CV cv, List<string> files)
+        public bool Update(CV cv)
         {
             var cvs = _context.Cv.SingleOrDefault(s => s.Id == cv.Id);
             if(cvs == null)
@@ -86,15 +86,7 @@ namespace ITJobs.Repository
             cvs.Certifications = cv.Certifications;
             cvs.Experience = cv.Experience;
             cvs.Skill = cv.Skill;
-            if(files != null) 
-            {
-                CloudinaryRepository cloudinary = new CloudinaryRepository();
-                string URl = cloudinary.UploadLink(files[0]);
-                if(!string.IsNullOrEmpty(URl))
-                {
-                    cvs.GitHubRepository = URl;
-                }
-            }
+            cvs.GitHubRepository = cv.GitHubRepository;
             _context.SaveChanges();
             return true;
         }

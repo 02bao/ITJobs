@@ -52,29 +52,5 @@ namespace ITJobs.Repository
             return "";
         }
 
-        public string UploadLink(string Link)
-        {
-            try
-            {
-                var uploadParams = new RawUploadParams
-                {
-                    File = new FileDescription(Link),
-                    PublicId = Guid.NewGuid().ToString(),
-                    Folder = "Links",
-                };
-                var result = _cloudinary.Upload(uploadParams);
-                if(result.Error != null)
-                {
-                    Log.Error(result.Error.ToString());
-                    return "";
-                }
-                return result.SecureUrl.ToString();
-            }
-            catch(Exception ex)
-            {
-                Log.Error(ex.Message);
-                return "";
-            }
-        }
     }
 }
