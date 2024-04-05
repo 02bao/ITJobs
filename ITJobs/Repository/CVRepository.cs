@@ -35,5 +35,33 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public CV GetById(long CvId)
+        {
+            return _context.Cv.SingleOrDefault(s => s.Id == CvId);
+        }
+
+        public List<CV> GetByUserId(long UserId)
+        {
+            List<CV> response = new List<CV>();
+            var users = _context.Cv.Where(s => s.User.Id ==  UserId).ToList();
+            if(users == null)
+            {
+                return response;
+            }
+            foreach( var user in users )
+            {
+                response.Add(new CV()
+                {
+                    Title=user.Title,
+                    Experience=user.Experience,
+                    Skill=user.Skill,
+                    GitHubRepository=user.GitHubRepository,
+                    Certifications=user.Certifications,
+                    Educartion=user.Educartion,
+                });
+            }
+            return response;
+        }
     }
 }

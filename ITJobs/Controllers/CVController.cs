@@ -30,5 +30,19 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Create Failed, Please try again!");
         }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(long CvId)
+        {
+            var cv = _mapper.Map<CVDTO>(_cVRepository.GetById(CvId));
+            return Ok(cv);
+        }
+
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId(long UserId)
+        {
+            var user = _mapper.Map<List<CVDTO>>(_cVRepository.GetByUserId(UserId));
+            return Ok(user);
+        }
     }
 }
