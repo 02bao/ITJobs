@@ -4,15 +4,15 @@ using ITJobs.Models;
 
 namespace ITJobs.Repository
 {
-    public class CVRepository : ICVRepository
+    public class ResumeRepository : IResumeRepository
     {
         private readonly DataContext _context;
 
-        public CVRepository(DataContext context)
+        public ResumeRepository(DataContext context)
         {
             _context = context;
         }
-        public bool CreateNewCV(long userid, CV cv)
+        public bool CreateNewCV(long userid, Resume cv)
         {
             User user = _context.Users.SingleOrDefault( s=> s.Id == userid );
             if(user == null)
@@ -20,7 +20,7 @@ namespace ITJobs.Repository
                 return false;
             }
             UserProfiles userprofiles = _context.UserProfiles.SingleOrDefault( s=> s.User.Id ==  userid );
-            CV NewCV = new CV()
+            Resume NewCV = new Resume()
             {
                 Title = cv.Title,
                 Educartion = cv.Educartion,
@@ -31,38 +31,46 @@ namespace ITJobs.Repository
                 User = user,
                 UserProfiles = userprofiles,
             };
-            _context.Cv.Add( NewCV );
+            _context.Resume.Add( NewCV );
             _context.SaveChanges();
             return true;
         }
 
         public bool Delete(long CvId)
         {
-            throw new NotImplementedException();
+            Resume cvs = _context.Resume.SingleOrDefault(s => s.Id ==  CvId);
+            if(cvs == null)
+            {
+                return false;
+            }
+            _context.Resume.Remove( cvs );
+            _context.SaveChanges();
+            return true;
         }
 
-        public ICollection<CV> GetAll()
+        public ICollection<Resume> GetAll()
         {
-            return _context.Cv.ToList();
+            return _context.Resume.ToList();
         }
 
-        public CV GetById(long CvId)
+        public Resume GetById(long CvId)
         {
-            return _context.Cv.SingleOrDefault(s => s.Id == CvId);
+            return _context.Resume.SingleOrDefault(s => s.Id == CvId);
         }
 
-        public List<CV> GetByUserId(long UserId)
+        public List<Resume> GetByUserId(long UserId)
         {
-            List<CV> response = new List<CV>();
-            var users = _context.Cv.Where(s => s.User.Id ==  UserId).ToList();
+            List<Resume> response = new List<Resume>();
+            var users = _context.Resume.Where(s => s.User.Id ==  UserId).ToList();
             if(users == null)
             {
                 return response;
             }
             foreach( var user in users )
             {
-                response.Add(new CV()
+                response.Add(new Resume()
                 {
+                    Id = user.Id,
                     Title=user.Title,
                     Experience=user.Experience,
                     Skill=user.Skill,
@@ -74,9 +82,9 @@ namespace ITJobs.Repository
             return response;
         }
 
-        public bool Update(CV cv)
+        public bool Update(Resume cv)
         {
-            var cvs = _context.Cv.SingleOrDefault(s => s.Id == cv.Id);
+            var cvs = _context.Resume.SingleOrDefault(s => s.Id == cv.Id);
             if(cvs == null)
             {
                 return false;

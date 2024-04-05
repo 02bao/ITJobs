@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITJobs.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240404054826_1")]
+    [Migration("20240405084322_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -23,6 +23,52 @@ namespace ITJobs.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("ITJobs.Models.Resume", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Certifications")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Educartion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Experience")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("GitHubRepository")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Skill")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserProfilesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserProfilesId");
+
+                    b.ToTable("Resume");
+                });
 
             modelBuilder.Entity("ITJobs.Models.User", b =>
                 {
@@ -84,6 +130,25 @@ namespace ITJobs.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserProfiles");
+                });
+
+            modelBuilder.Entity("ITJobs.Models.Resume", b =>
+                {
+                    b.HasOne("ITJobs.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ITJobs.Models.UserProfiles", "UserProfiles")
+                        .WithMany()
+                        .HasForeignKey("UserProfilesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserProfiles");
                 });
 
             modelBuilder.Entity("ITJobs.Models.UserProfiles", b =>

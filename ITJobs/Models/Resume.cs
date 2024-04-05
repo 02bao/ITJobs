@@ -1,6 +1,6 @@
 ﻿namespace ITJobs.Models
 {
-    public class CV
+    public class Resume
     {
         public long Id { get; set; }
         public User User { get; set; }

@@ -21,7 +21,7 @@ namespace ITJobs.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ITJobs.Models.CV", b =>
+            modelBuilder.Entity("ITJobs.Models.Resume", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace ITJobs.Migrations
 
                     b.HasIndex("UserProfilesId");
 
-                    b.ToTable("Cv");
+                    b.ToTable("Resume");
                 });
 
             modelBuilder.Entity("ITJobs.Models.User", b =>
@@ -129,7 +129,7 @@ namespace ITJobs.Migrations
                     b.ToTable("UserProfiles");
                 });
 
-            modelBuilder.Entity("ITJobs.Models.CV", b =>
+            modelBuilder.Entity("ITJobs.Models.Resume", b =>
                 {
                     b.HasOne("ITJobs.Models.User", "User")
                         .WithMany()

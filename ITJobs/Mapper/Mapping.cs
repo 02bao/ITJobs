@@ -12,8 +12,8 @@ namespace ITJobs.Mapper
             CreateMap<UserDTO, User>();
             CreateMap<UserProfiles, UserProfilesDTO>();
             CreateMap<UserProfilesDTO, UserProfiles>();
-            CreateMap<CV, CVDTO>();
-            CreateMap<CVDTO, CV>();
+            CreateMap<Resume, ResumeDTO>();
+            CreateMap<ResumeDTO, Resume>();
         }
     }
 }

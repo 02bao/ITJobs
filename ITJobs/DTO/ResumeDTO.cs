@@ -2,7 +2,7 @@
 
 namespace ITJobs.DTO
 {
-    public class CVDTO
+    public class ResumeDTO
     {
         public long Id { get; set; }
         public string Title { get; set; }
@@ -10,6 +10,6 @@ namespace ITJobs.DTO
         public string Educartion { get; set; }
         public string Certifications { get; set; }
         public string Skill { get; set; }
-        public string? GithubRepository { get; set; }
+        public string? GitHubRepository { get; set; }
     }
 }
