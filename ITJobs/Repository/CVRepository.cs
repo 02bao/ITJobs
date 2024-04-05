@@ -36,6 +36,16 @@ namespace ITJobs.Repository
             return true;
         }
 
+        public bool Delete(long CvId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<CV> GetAll()
+        {
+            return _context.Cv.ToList();
+        }
+
         public CV GetById(long CvId)
         {
             return _context.Cv.SingleOrDefault(s => s.Id == CvId);
@@ -62,6 +72,31 @@ namespace ITJobs.Repository
                 });
             }
             return response;
+        }
+
+        public bool Update(CV cv, List<string> files)
+        {
+            var cvs = _context.Cv.SingleOrDefault(s => s.Id == cv.Id);
+            if(cvs == null)
+            {
+                return false;
+            }
+            cvs.Title = cv.Title;
+            cvs.Educartion = cv.Educartion;
+            cvs.Certifications = cv.Certifications;
+            cvs.Experience = cv.Experience;
+            cvs.Skill = cv.Skill;
+            if(files != null) 
+            {
+                CloudinaryRepository cloudinary = new CloudinaryRepository();
+                string URl = cloudinary.UploadLink(files[0]);
+                if(!string.IsNullOrEmpty(URl))
+                {
+                    cvs.GitHubRepository = URl;
+                }
+            }
+            _context.SaveChanges();
+            return true;
         }
     }
 }

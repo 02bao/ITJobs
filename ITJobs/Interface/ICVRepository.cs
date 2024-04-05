@@ -7,5 +7,8 @@ namespace ITJobs.Interface
         bool CreateNewCV(long userid, CV cV);
         CV GetById(long CvId);
         List<CV> GetByUserId(long UserId);
+        ICollection<CV> GetAll();
+        bool Update(CV cv, List<string> files);
+        bool Delete(long CvId);
     }
 }

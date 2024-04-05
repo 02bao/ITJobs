@@ -44,5 +44,25 @@ namespace ITJobs.Controllers
             var user = _mapper.Map<List<CVDTO>>(_cVRepository.GetByUserId(UserId));
             return Ok(user);
         }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetList()
+        {
+            var users = _mapper.Map<List<CVDTO>>(_cVRepository.GetAll());
+            return Ok(users);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromForm] CVDTO _DTO, [FromForm] List<string> files) 
+        {
+            var cvs = _mapper.Map<CV>(_DTO);
+            bool tmp = _cVRepository.Update(cvs, files);
+            if( tmp) 
+            {
+                return Ok("Update Successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+        }
+
     }
 }
