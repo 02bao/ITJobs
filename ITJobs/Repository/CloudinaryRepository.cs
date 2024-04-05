@@ -12,14 +12,15 @@ namespace ITJobs.Repository
         public CloudinaryRepository()
         {
             var CloudinaryAccount = new Account(
-                "dkji5ftd1",
-                "597553616315551",
-               "F1CYE4hN4Ig3eitNpAR8RvmAcb8"
+                "dbc7m2bfe",
+                "414433899294356",
+               "Ftv4-eQroBMkGXO9oEmAshTn5M0"
             );
-            _cloudinary = new Cloudinary(CloudinaryAccount); 
+            _cloudinary = new Cloudinary(CloudinaryAccount);
+            _cloudinary.Api.Secure = true;
         }
 
-        public async Task<string> uploadImage(IFormFile file)
+        public string uploadImage(IFormFile file)
         {
             try
             {
@@ -35,7 +36,7 @@ namespace ITJobs.Repository
                         PublicId = Guid.NewGuid().ToString(),
                         Folder = "review",
                     };
-                    ImageUploadResult result = await _cloudinary.UploadAsync(uploadParams);
+                    ImageUploadResult result =  _cloudinary.Upload(uploadParams);
                     if(result.Error != null)
                     {
                         Log.Error(result.Error.ToString());

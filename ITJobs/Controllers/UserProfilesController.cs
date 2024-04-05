@@ -46,14 +46,14 @@ namespace ITJobs.Controllers
         }
 
         [HttpGet("GetByUserId")]
-        public IActionResult GetByUserId(long userid)
+        public IActionResult GetByUserId([FromQuery] long userid)
         {
             var users = _mapper.Map<List<UserProfilesDTO>>(_userProfilesRepository.GetByUserId(userid));
             return Ok(users);
         }
 
         [HttpPut("Update")]
-        public IActionResult Update([FromBody] UserProfilesDTO _DTO,[FromForm] IFormFile avatarfile) 
+        public IActionResult Update([FromForm] UserProfilesDTO _DTO,[FromForm] List<IFormFile> avatarfile) 
         {
             var user = _mapper.Map<UserProfiles>(_DTO);
             bool tmp = _userProfilesRepository.Update(user, avatarfile);

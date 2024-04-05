@@ -8,6 +8,6 @@ namespace ITJobs.Interface
         ICollection<UserProfiles> GetAll();
         UserProfiles GetById(long userprofileId);
         List<UserProfiles> GetByUserId(long userId);  
-        bool Update(UserProfiles userprofile, IFormFile avaterfile);
+        bool Update(UserProfiles userprofile, List<IFormFile> avaterfile);
     }
 }

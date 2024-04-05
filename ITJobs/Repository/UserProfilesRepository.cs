@@ -24,7 +24,7 @@ namespace ITJobs.Repository
                 FullName = users.FullName,
                 Phone = users.Phone,
                 Address = users.Address,
-                Avatar ="",
+                Avatar =null,
                 User = user,
             };
             _context.UserProfiles.Add(NewProfile);
@@ -60,7 +60,7 @@ namespace ITJobs.Repository
             return response;
         }
 
-        public bool Update(UserProfiles userprofile, IFormFile avaterfile)
+        public bool Update(UserProfiles userprofile, List<IFormFile> avaterfile)
         {
             var users = _context.UserProfiles.SingleOrDefault( s=> s.Id == userprofile.Id);
             if(users == null)
@@ -70,10 +70,10 @@ namespace ITJobs.Repository
             users.FullName = userprofile.FullName;
             users.Phone = userprofile.Phone;
             users.Address = userprofile.Address;
-            if (users.Avatar.Any())
+            if (avaterfile != null)
             {
                 CloudinaryRepository cloudinary = new CloudinaryRepository();
-                string imageUrl = cloudinary.uploadImage(avaterfile).Result;
+                string imageUrl = cloudinary.uploadImage(avaterfile[0]);
                 if(!string.IsNullOrEmpty(imageUrl))
                 {
                     users.Avatar = imageUrl;
