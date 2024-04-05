@@ -85,7 +85,7 @@ namespace ITJobs.Repository
             if (avaterfile != null)
             {
                 CloudinaryRepository cloudinary = new CloudinaryRepository();
-                string imageUrl = cloudinary.uploadImage(avaterfile[0]);
+                string imageUrl = cloudinary.uploadFile(avaterfile[0]);
                 if(!string.IsNullOrEmpty(imageUrl))
                 {
                     users.Avatar = imageUrl;

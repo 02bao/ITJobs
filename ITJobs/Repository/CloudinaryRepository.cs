@@ -20,7 +20,7 @@ namespace ITJobs.Repository
             _cloudinary.Api.Secure = true;
         }
 
-        public string uploadImage(IFormFile file)
+        public string uploadFile(IFormFile file)
         {
             try
             {
