@@ -9,7 +9,7 @@
         public string Educartion { get; set; }
         public string Skill { get; set; }
         public string Certifications { get; set; }
-        public string? GitHubRepository { get; set; }
+        public List<string>? GitHubRepository { get; set; }
         public UserProfiles UserProfiles { get; set; }
     }
 }

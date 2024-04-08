@@ -16,6 +16,8 @@ namespace ITJobs.Mapper
             CreateMap<ResumeDTO, Resume>();
             CreateMap<Company, CompanyDTO>();
             CreateMap<CompanyDTO, Company>();
+            CreateMap<UserPost, UserPostDTO>();
+            CreateMap<UserPostDTO, UserPost>();
         }
     }
 }

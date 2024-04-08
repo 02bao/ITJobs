@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -28,6 +29,33 @@ namespace ITJobs.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false),
+                    Industry = table.Column<string>(type: "text", nullable: false),
+                    Website = table.Column<string>(type: "text", nullable: false),
+                    size = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Companies_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserProfiles",
                 columns: table => new
                 {
@@ -37,7 +65,9 @@ namespace ITJobs.Migrations
                     FullName = table.Column<string>(type: "text", nullable: false),
                     Avatar = table.Column<string>(type: "text", nullable: true),
                     Phone = table.Column<string>(type: "text", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false)
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    GitHub = table.Column<string>(type: "text", nullable: true),
+                    Linkedin = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,7 +92,7 @@ namespace ITJobs.Migrations
                     Educartion = table.Column<string>(type: "text", nullable: false),
                     Skill = table.Column<string>(type: "text", nullable: false),
                     Certifications = table.Column<string>(type: "text", nullable: false),
-                    GitHubRepository = table.Column<string>(type: "text", nullable: true),
+                    GitHubRepository = table.Column<List<string>>(type: "text[]", nullable: true),
                     UserProfilesId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -83,6 +113,11 @@ namespace ITJobs.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Companies_UserId",
+                table: "Companies",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Resume_UserId",
                 table: "Resume",
                 column: "UserId");
@@ -101,6 +136,9 @@ namespace ITJobs.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Companies");
+
             migrationBuilder.DropTable(
                 name: "Resume");
 
