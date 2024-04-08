@@ -40,7 +40,8 @@ namespace ITJobs.Repository
 
         public UserPost GetPostById(long postid)
         {
-            throw new NotImplementedException();
+            var post = _context.UserPosts.SingleOrDefault(s => s.Id == postid);
+            return post;
         }
 
         public ICollection<UserPost> GetPosts()
@@ -50,7 +51,24 @@ namespace ITJobs.Repository
 
         public List<UserPost> GetPsotsByUserId(long userId)
         {
-            throw new NotImplementedException();
+            List<UserPost> response = new List<UserPost>();
+            var user = _context.UserPosts.Where(s => s.User.Id == userId).ToList();
+           
+            foreach (var post in user)
+            {
+                response.Add(new UserPost
+                {
+                    Id = post.Id,
+                    NamePost = post.NamePost,
+                    Content = post.Content,
+                    Image = post.Image,
+                    Timestamp = DateTime.UtcNow,
+                    Like = post.Like,
+                    Parent = post.Parent,
+                    Comment = post.Comment,
+                });
+            }
+            return response;
         }
     }
 }

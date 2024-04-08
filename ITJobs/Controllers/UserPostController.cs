@@ -37,5 +37,19 @@ namespace ITJobs.Controllers
             var post = _mapper.Map<List<UserPostDTO>>(_userPostRepository.GetPosts());
             return Ok(post);
         }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(long postid)
+        {
+            var post = _mapper.Map<UserPostDTO>(_userPostRepository.GetPostById(postid));
+            return Ok(post);
+        }
+
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId( [FromQuery] long userId)
+        {
+            var post = _mapper.Map<List<UserPostDTO>>(_userPostRepository.GetPsotsByUserId(userId));
+            return Ok(post);
+        }
     }
 }
