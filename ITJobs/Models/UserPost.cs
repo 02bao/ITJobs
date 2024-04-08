@@ -11,6 +11,9 @@
         public UserProfiles UserProfiles { get; set; }
         public long? Like { get; set; }
         public int Parent { get; set; }
+        public string WokingMode { get; set; }
+        public string JobStyle { get; set; }
+        public string JobField { get; set; }
         public List<string>? Comment { get; set; }
     }
 }

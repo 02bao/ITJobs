@@ -30,6 +30,9 @@ namespace ITJobs.Repository
                 Like = post.Like,
                 Parent = post.Parent,
                 Comment = post.Comment,
+                WokingMode = post.WokingMode,
+                JobField = post.JobField,
+                JobStyle = post.JobStyle,
                 User = user,
                 UserProfiles = userProfiles,
             };
@@ -77,6 +80,9 @@ namespace ITJobs.Repository
                     Timestamp = DateTime.UtcNow,
                     Like = post.Like,
                     Parent = post.Parent,
+                    WokingMode = post.WokingMode,
+                    JobField = post.JobField,
+                    JobStyle = post.JobStyle,
                     Comment = post.Comment,
                 });
             }
@@ -95,6 +101,9 @@ namespace ITJobs.Repository
             userposts.Parent = post.Parent;
             userposts.Comment = post.Comment;
             userposts.Timestamp =DateTime.UtcNow;
+            userposts.WokingMode = post.WokingMode;
+            userposts.JobField = post.JobField;
+            userposts.JobStyle = post.JobStyle;
             userposts.Like = post.Like;
             if(images != null)
             {

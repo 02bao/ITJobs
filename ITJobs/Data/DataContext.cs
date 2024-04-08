@@ -15,6 +15,7 @@ namespace ITJobs.Data
         public DbSet<Resume> Resume { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<UserPost> UserPosts { get; set; }
+        public DbSet<CompanyPost> CompanyPosts { get; set; }
 
         public static string configsql = "Host=localhost:5432;Database=ITJobs;Username=postgres;Password=postgres";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
