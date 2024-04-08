@@ -30,5 +30,27 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Create Failed, Please try again!");
         }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var posts = _mapper.Map<List<CompanyPostDTO>>(_companyPostRepository.GetAll()); 
+            return Ok(posts);
+        }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(long id)
+        {
+            var post = _mapper.Map<CompanyPostDTO>(_companyPostRepository.GetById(id));
+            return Ok(post);
+        }
+
+        [HttpGet("GetByCompanyId")]
+        public IActionResult GetByCompanyId([FromQuery] long companyid)
+        { 
+            var post = _mapper.Map<List<CompanyPostDTO>>(_companyPostRepository.GetByCompanyId(companyid));
+            return Ok(post);
+        }
+        
     }
 }

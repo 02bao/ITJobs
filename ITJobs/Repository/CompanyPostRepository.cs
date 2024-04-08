@@ -44,17 +44,40 @@ namespace ITJobs.Repository
 
         public ICollection<CompanyPost> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.CompanyPosts.ToList();
         }
 
         public List<CompanyPost> GetByCompanyId(long companyid)
         {
-            throw new NotImplementedException();
+            List<CompanyPost> response = new List<CompanyPost>();
+            var companies = _context.CompanyPosts.Where(s => s.Companies.Id == companyid).ToList();
+            foreach ( var company in companies)
+            {
+                response.Add(new CompanyPost
+                {
+                    Id = company.Id,
+                    NamePost = company.NamePost,
+                    Content = company.Content,
+                    Image = company.Image,
+                    Like = company.Like,
+                    Parent = company.Parent,
+                    Comment = company.Comment,
+                    Timestamp = company.Timestamp,
+                    ExpirationDate = company.ExpirationDate,
+                    ApplicationCount = company.ApplicationCount,
+                    Salary = company.Salary,
+                    WorkingMode = company.WorkingMode,
+                    Field = company.Field,
+                    JobStyle = company.JobStyle,
+                });
+            }
+            return response;
         }
 
         public CompanyPost GetById(long id)
         {
-            throw new NotImplementedException();
+            var post = _context.CompanyPosts.SingleOrDefault(s => s.Id == id);
+            return post;
         }
     }
 }
