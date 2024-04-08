@@ -30,5 +30,12 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Create Failed, Please try again!");
         }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetList()
+        {
+            var companies = _mapper.Map<List<CompanyDTO>>(_companyRepository.GetAll());
+            return Ok(companies);
+        }
     }
 }

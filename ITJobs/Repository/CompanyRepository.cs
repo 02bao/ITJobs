@@ -40,5 +40,20 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public ICollection<Company> GetAll()
+        {
+            return _context.Companies.ToList();
+        }
+
+        public Company GetById(long companyid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetByUserId(long userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
