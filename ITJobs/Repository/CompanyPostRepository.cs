@@ -44,12 +44,12 @@ namespace ITJobs.Repository
 
         public bool Delete(long postid)
         {
-            var post = _context.Companies.SingleOrDefault(s => s.Id == postid);
+            var post = _context.CompanyPosts.SingleOrDefault(s => s.Id == postid);
             if(post == null)
             {
                 return false;
             }
-            _context.Companies.Remove(post);
+            _context.CompanyPosts.Remove(post);
             _context.SaveChanges();
             return true;
         }
@@ -94,6 +94,7 @@ namespace ITJobs.Repository
 
         public bool Update(CompanyPost post, List<IFormFile> images)
         {
+            var NewDate = DateTime.Parse(post.ExpirationDate.ToString()).ToUniversalTime();
             var postid = _context.CompanyPosts.SingleOrDefault(s => s.Id == post.Id);
             if(postid == null)
             {
@@ -105,7 +106,7 @@ namespace ITJobs.Repository
             postid.Parent = post.Parent;
             postid.Comment = post.Comment;
             postid.Timestamp = DateTime.UtcNow;
-            postid.ExpirationDate = post.ExpirationDate;
+            postid.ExpirationDate = NewDate;
             postid.ApplicationCount = post.ApplicationCount;
             postid.Salary = post.Salary;
             postid.WorkingMode = post.WorkingMode;
