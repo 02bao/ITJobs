@@ -44,5 +44,12 @@ namespace ITJobs.Controllers
             var companies = _mapper.Map<List<CompanyDTO>>(_companyRepository.GetByUserId(userid));
             return Ok(companies);
         }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(long companyid)
+        {
+            var company = _mapper.Map<CompanyDTO>(_companyRepository.GetById(companyid));
+            return Ok(company);
+        }
     }
 }

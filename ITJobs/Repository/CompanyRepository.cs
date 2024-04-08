@@ -72,7 +72,8 @@ namespace ITJobs.Repository
 
         public Company GetById(long companyid)
         {
-            throw new NotImplementedException();
+            var company = _context.Companies.FirstOrDefault(s => s.Id == companyid);
+            return company;
         }
     }
 }
