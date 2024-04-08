@@ -75,5 +75,17 @@ namespace ITJobs.Repository
             var company = _context.Companies.FirstOrDefault(s => s.Id == companyid);
             return company;
         }
+
+        public bool ChangeInformation(Company company)
+        {
+            _context.Companies.Update(company);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool Delete(long companyid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

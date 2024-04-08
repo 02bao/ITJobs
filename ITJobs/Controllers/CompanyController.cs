@@ -51,5 +51,17 @@ namespace ITJobs.Controllers
             var company = _mapper.Map<CompanyDTO>(_companyRepository.GetById(companyid));
             return Ok(company);
         }
+
+        [HttpPut("ChangeInformation")]
+        public IActionResult ChangeInformation([FromBody] CompanyDTO _DTO)
+        {
+            var company = _mapper.Map<Company>(_DTO);
+            bool tmp = _companyRepository.ChangeInformation(company);
+            if(tmp) 
+            { 
+                return Ok("Change Information Successfully");
+            }
+            return BadRequest("Change Failed , Please try agian!");
+        }
     }
 }

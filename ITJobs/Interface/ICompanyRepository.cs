@@ -8,5 +8,7 @@ namespace ITJobs.Interface
         ICollection<Company> GetAll();
         Company GetById(long companyid);
         List<Company> GetByUserId(long userId);
+        bool ChangeInformation(Company companyid);
+        bool Delete (long  companyid);
     }
 }
