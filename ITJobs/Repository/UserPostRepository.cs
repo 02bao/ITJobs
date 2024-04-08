@@ -38,6 +38,18 @@ namespace ITJobs.Repository
             return true;
         }
 
+        public bool Delete(long postid)
+        {
+            var post = _context.UserPosts.SingleOrDefault(s => s.Id ==postid);
+            if(post == null)
+            {
+                return false;
+            }
+            _context.UserPosts.Remove(post);
+            _context.SaveChanges();
+            return true;
+        }
+
         public UserPost GetPostById(long postid)
         {
             var post = _context.UserPosts.SingleOrDefault(s => s.Id == postid);
@@ -69,6 +81,32 @@ namespace ITJobs.Repository
                 });
             }
             return response;
+        }
+
+        public bool Update(UserPost post, List<IFormFile> images)
+        {
+            var userposts = _context.UserPosts.SingleOrDefault(s => s.Id == post.Id); 
+            if(userposts == null)
+            {
+                return false;
+            }
+            userposts.NamePost = post.NamePost;
+            userposts.Content = post.Content;
+            userposts.Parent = post.Parent;
+            userposts.Comment = post.Comment;
+            userposts.Timestamp =DateTime.UtcNow;
+            userposts.Like = post.Like;
+            if(images != null)
+            {
+                CloudinaryRepository cloudinary = new CloudinaryRepository();
+                string imageURL = cloudinary.uploadFile(images[0]);
+                if(!string.IsNullOrEmpty(imageURL))
+                {
+                    userposts.Image = imageURL;
+                }
+            }
+            _context.SaveChanges();
+            return true;
         }
     }
 }

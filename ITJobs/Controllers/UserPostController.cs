@@ -51,5 +51,17 @@ namespace ITJobs.Controllers
             var post = _mapper.Map<List<UserPostDTO>>(_userPostRepository.GetPsotsByUserId(userId));
             return Ok(post);
         }
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromForm] UserPostDTO _DTO, [FromForm] List<IFormFile> images ) 
+        {
+            var post = _mapper.Map<UserPost>(_DTO);
+            bool tmp = _userPostRepository.Update(post, images);
+            if(tmp)
+            {
+                return Ok("Update Successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+        }
     }
 }
