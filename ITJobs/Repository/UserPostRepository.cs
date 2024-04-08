@@ -37,5 +37,20 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public UserPost GetPostById(long postid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<UserPost> GetPosts()
+        {
+            return _context.UserPosts.ToList();
+        }
+
+        public List<UserPost> GetPsotsByUserId(long userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
