@@ -1,6 +1,7 @@
 ﻿using ITJobs.Data;
 using ITJobs.Interface;
 using ITJobs.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ITJobs.Repository
 {
@@ -46,12 +47,30 @@ namespace ITJobs.Repository
             return _context.Companies.ToList();
         }
 
-        public Company GetById(long companyid)
+        public List<Company> GetByUserId(long userid)
         {
-            throw new NotImplementedException();
+            var companies = _context.Companies.Where(s => s.User.Id == userid).ToList();
+            List<Company> response = new List<Company>();
+            foreach(var company in companies)
+            {
+                response.Add(new Company
+                {
+                    Id = company.Id,
+                    Name = company.Name,
+                    Email = company.Email,
+                    Phone = company.Phone,
+                    Description = company.Description,
+                    Location= company.Location,
+                    Industry = company.Industry,
+                    Website = company.Website,
+                    size = company.size,
+                });
+            }
+            return response;
+
         }
 
-        public User GetByUserId(long userId)
+        public Company GetById(long companyid)
         {
             throw new NotImplementedException();
         }

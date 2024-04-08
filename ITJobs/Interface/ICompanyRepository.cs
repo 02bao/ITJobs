@@ -7,6 +7,6 @@ namespace ITJobs.Interface
         bool CreateNewCompany(Company company, long userid);
         ICollection<Company> GetAll();
         Company GetById(long companyid);
-        User GetByUserId(long userId);
+        List<Company> GetByUserId(long userId);
     }
 }
