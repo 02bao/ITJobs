@@ -63,5 +63,16 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Change Failed , Please try agian!");
         }
+
+        [HttpDelete("Delete")]
+        public IActionResult Delete(long companyid)
+        {
+            bool tmp = _companyRepository.Delete(companyid);
+            if( tmp)
+            {
+                return Ok("Delete Successfully");
+            }
+            return BadRequest("Delete Failed, Please try again!");
+        }
     }
 }

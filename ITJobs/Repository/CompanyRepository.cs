@@ -85,7 +85,10 @@ namespace ITJobs.Repository
 
         public bool Delete(long companyid)
         {
-            throw new NotImplementedException();
+            Company companies = _context.Companies.SingleOrDefault(s => s.Id == companyid);
+            _context.Companies.Remove(companies);
+            _context.SaveChanges();
+            return true;
         }
     }
 }
