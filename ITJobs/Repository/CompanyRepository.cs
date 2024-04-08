@@ -14,7 +14,31 @@ namespace ITJobs.Repository
         }
         public bool CreateNewCompany(Company company, long userid)
         {
-            throw new NotImplementedException();
+            User user = _context.Users.SingleOrDefault( s => s.Id == userid);
+            if(user == null)
+            {
+                return false;
+            }
+            var EmailCompany = _context.Companies.SingleOrDefault( s => s.Email == company.Email);
+            if(EmailCompany != null)
+            {
+                return false;
+            }
+            var Companies = new Company()
+            {
+                Name = company.Name,
+                Email = company.Email,
+                Phone = company.Phone,
+                Description = company.Description,
+                Location = company.Location,
+                Industry = company.Industry,
+                Website = company.Website,
+                size = company.size,
+                User = user,
+            };
+            _context.Companies.Add( Companies );
+            _context.SaveChanges();
+            return true;
         }
     }
 }
