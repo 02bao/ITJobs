@@ -10,8 +10,8 @@
         public int? Like { get; set; }
         public int Parent { get; set; }
         public List<string>? Comment { get; set; }
-        public DateTime? Timestamp { get; set; } = DateTime.UtcNow.ToUniversalTime();
-        public DateTime? ExpirationDate { get; set; } = DateTime.UtcNow.ToUniversalTime();
+        public DateTime? Timestamp { get; set; } = DateTime.UtcNow;
+        public DateTime? ExpirationDate { get; set; } = DateTime.UtcNow;
         public string Salary { get; set; }
         public int ApplicationCount { get; set; }
         public string WorkingMode { get; set; }

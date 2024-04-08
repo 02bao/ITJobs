@@ -42,6 +42,18 @@ namespace ITJobs.Repository
             return true;
         }
 
+        public bool Delete(long postid)
+        {
+            var post = _context.Companies.SingleOrDefault(s => s.Id == postid);
+            if(post == null)
+            {
+                return false;
+            }
+            _context.Companies.Remove(post);
+            _context.SaveChanges();
+            return true;
+        }
+
         public ICollection<CompanyPost> GetAll()
         {
             return _context.CompanyPosts.ToList();
@@ -78,6 +90,38 @@ namespace ITJobs.Repository
         {
             var post = _context.CompanyPosts.SingleOrDefault(s => s.Id == id);
             return post;
+        }
+
+        public bool Update(CompanyPost post, List<IFormFile> images)
+        {
+            var postid = _context.CompanyPosts.SingleOrDefault(s => s.Id == post.Id);
+            if(postid == null)
+            {
+                return false;
+            }
+            postid.NamePost = post.NamePost;
+            postid.Content = post.Content;
+            postid.Like = post.Like;
+            postid.Parent = post.Parent;
+            postid.Comment = post.Comment;
+            postid.Timestamp = DateTime.UtcNow;
+            postid.ExpirationDate = post.ExpirationDate;
+            postid.ApplicationCount = post.ApplicationCount;
+            postid.Salary = post.Salary;
+            postid.WorkingMode = post.WorkingMode;
+            postid.Field = post.Field;
+            postid.JobStyle = post.JobStyle;
+            if(images != null)
+            {
+                CloudinaryRepository cloudinary = new CloudinaryRepository();
+                string imageURL = cloudinary.uploadFile(images[0]);
+                if(!string.IsNullOrEmpty(imageURL))
+                {
+                    postid.Image = imageURL;
+                }
+            }
+            _context.SaveChanges();
+            return true;
         }
     }
 }

@@ -51,6 +51,18 @@ namespace ITJobs.Controllers
             var post = _mapper.Map<List<CompanyPostDTO>>(_companyPostRepository.GetByCompanyId(companyid));
             return Ok(post);
         }
-        
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromForm] CompanyPostDTO _DTO,[FromForm] List<IFormFile> images)
+        {
+            var posts = _mapper.Map<CompanyPost>(_DTO);
+            bool tmp = _companyPostRepository.Update(posts, images);
+            if(tmp)
+            {
+                return Ok("Update Successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+
+        }
     }
 }
