@@ -20,10 +20,9 @@ namespace ITJobs.Controllers
         }
 
         [HttpPost("CreateNewPost")]
-        public IActionResult CreateNewPost(long companyid, [FromBody] CompanyPostDTO _DTO, DateTime experiation )
+        public IActionResult CreateNewPost(long companyid, CompanyPost_Create create, DateTime experiation )
         {
-            var posts = _mapper.Map<CompanyPost>(_DTO);
-            bool tmp = _companyPostRepository.CreateNewPost(companyid, posts, experiation);
+            bool tmp = _companyPostRepository.CreateNewPost(companyid, create, experiation);
             if(tmp)
             {
                 return Ok("Create New Post Successfully");

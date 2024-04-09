@@ -13,7 +13,7 @@ namespace ITJobs.Repository
             _context = context;
         }
 
-        public bool CreateNewPost(long companyid, CompanyPost post, DateTime experiation)
+        public bool CreateNewPost(long companyid, CompanyPost_Create post, DateTime experiation)
         {
             var company = _context.Companies.SingleOrDefault(s => s.Id == companyid);
             if(company == null)
@@ -24,13 +24,13 @@ namespace ITJobs.Repository
             {
                 NamePost = post.NamePost,
                 Content = post.Content,
-                Image = post.Image,
-                Like = post.Like,
+                Image = null,
+                Like = null,
                 Parent = post.Parent,
-                Comment = post.Comment,
+                Comment = null,
                 Timestamp = DateTime.UtcNow,
                 ExpirationDate = experiation.ToUniversalTime(),
-                ApplicationCount = post.ApplicationCount,
+                ApplicationCount = null,
                 Salary = post.Salary,
                 WorkingMode = post.WorkingMode,
                 Field = post.Field,

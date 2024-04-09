@@ -14,7 +14,7 @@ namespace ITJobs.DTO
         public DateTime? Timestamp { get; set; } = DateTime.UtcNow;
         public DateTime? ExpirationDate { get; set; } = DateTime.UtcNow;
         public string Salary { get; set; }
-        public int ApplicationCount { get; set; }
+        public int? ApplicationCount { get; set; }
         public string WorkingMode { get; set; }
         public string JobStyle { get; set; }
         public string Field { get; set; }
