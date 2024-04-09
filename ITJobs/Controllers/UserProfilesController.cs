@@ -20,10 +20,9 @@ namespace ITJobs.Controllers
         }
 
         [HttpPost("CreateUserProfiles")]
-        public IActionResult CreateUserProfiles(long userid, [FromBody] UserProfilesDTO _DTO)
+        public IActionResult CreateUserProfiles(long userid, UserProfiles_Create create)
         {
-            var user = _mapper.Map<UserProfiles>(_DTO);
-            bool tmp = _userProfilesRepository.CreateUserProfiles(userid, user);
+            bool tmp = _userProfilesRepository.CreateUserProfiles(userid, create);
             if(tmp)
             {
                 return Ok("Create NewProfiles Successfully");

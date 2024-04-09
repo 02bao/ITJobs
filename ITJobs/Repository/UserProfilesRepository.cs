@@ -12,7 +12,7 @@ namespace ITJobs.Repository
         {
             _context = context;
         }
-        public bool CreateUserProfiles(long userid, UserProfiles users)
+        public bool CreateUserProfiles(long userid, UserProfiles_Create users)
         {
             User user = _context.Users.SingleOrDefault(s => s.Id == userid);
             if(user == null)
@@ -24,8 +24,10 @@ namespace ITJobs.Repository
                 FullName = users.FullName,
                 Phone = users.Phone,
                 Address = users.Address,
-                Avatar =null,
                 User = user,
+                Avatar = null,
+                Linkedin="",
+                GitHub="",
             };
             _context.UserProfiles.Add(NewProfile);
             _context.SaveChanges();
@@ -82,6 +84,8 @@ namespace ITJobs.Repository
             users.FullName = userprofile.FullName;
             users.Phone = userprofile.Phone;
             users.Address = userprofile.Address;
+            users.GitHub = userprofile.GitHub;
+            users.Linkedin = userprofile.Linkedin;
             if (avaterfile != null)
             {
                 CloudinaryRepository cloudinary = new CloudinaryRepository();

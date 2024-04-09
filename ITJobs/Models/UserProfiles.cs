@@ -11,4 +11,11 @@
         public string? GitHub { get; set; }
         public string? Linkedin { get; set; }
     }
+
+    public class UserProfiles_Create
+    {
+        public string FullName { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+    }
 }
