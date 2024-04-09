@@ -20,6 +20,8 @@ namespace ITJobs.Mapper
             CreateMap<UserPostDTO, UserPost>();
             CreateMap<CompanyPost, CompanyPostDTO>();
             CreateMap<CompanyPostDTO, CompanyPost>();
+            CreateMap<JobSearch, JobSearchDTO>();
+            CreateMap<JobSearchDTO, JobSearch>();
         }
     }
 }

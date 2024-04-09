@@ -12,6 +12,7 @@
         public string Website { get; set; }
         public long? size { get; set; }
         public User User { get; set; }
+        public List<CompanyPost> CompanyPosts { get; set; }
     }
 
     public class Company_Create
