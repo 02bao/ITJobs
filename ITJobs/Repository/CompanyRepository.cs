@@ -13,7 +13,7 @@ namespace ITJobs.Repository
         {
             _context = context;
         }
-        public bool CreateNewCompany(Company company, long userid)
+        public bool CreateNewCompany(Company_Create company, long userid)
         {
             User user = _context.Users.SingleOrDefault( s => s.Id == userid);
             if(user == null)
@@ -33,8 +33,8 @@ namespace ITJobs.Repository
                 Description = company.Description,
                 Location = company.Location,
                 Industry = company.Industry,
-                Website = company.Website,
-                size = company.size,
+                Website = "",
+                size = null,
                 User = user,
             };
             _context.Companies.Add( Companies );
@@ -76,7 +76,7 @@ namespace ITJobs.Repository
             return company;
         }
 
-        public bool ChangeInformation(Company company)
+        public bool Update(Company company)
         {
             _context.Companies.Update(company);
             _context.SaveChanges();

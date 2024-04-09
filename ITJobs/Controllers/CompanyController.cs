@@ -20,10 +20,9 @@ namespace ITJobs.Controllers
         }
 
         [HttpPost("CreateNewCompany")]
-        public IActionResult CreateNewCompany([FromBody] CompanyDTO _DTO, long userid)
+        public IActionResult CreateNewCompany(Company_Create create, long userid)
         {
-            var company = _mapper.Map<Company>(_DTO);
-            bool tmp = _companyRepository.CreateNewCompany(company, userid);
+            bool tmp = _companyRepository.CreateNewCompany(create, userid);
             if(tmp)
             {
                 return Ok("Create New Company Successfully");
@@ -52,11 +51,11 @@ namespace ITJobs.Controllers
             return Ok(company);
         }
 
-        [HttpPut("ChangeInformation")]
-        public IActionResult ChangeInformation([FromBody] CompanyDTO _DTO)
+        [HttpPut("Update")]
+        public IActionResult Update([FromBody] CompanyDTO _DTO)
         {
             var company = _mapper.Map<Company>(_DTO);
-            bool tmp = _companyRepository.ChangeInformation(company);
+            bool tmp = _companyRepository.Update(company);
             if(tmp) 
             { 
                 return Ok("Change Information Successfully");
