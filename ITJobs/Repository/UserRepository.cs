@@ -46,7 +46,7 @@ namespace ITJobs.Repository
             return -1;
         }
 
-        public bool Register(User user)
+        public bool Register(User_Register user)
         {
             User useremail = _context.Users.FirstOrDefault(s => s.Email == user.Email);
             if(useremail != null)

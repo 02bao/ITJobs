@@ -21,9 +21,8 @@ namespace ITJobs.Controllers
         }
 
         [HttpPost("Register")]
-        public IActionResult Register([FromBody] UserDTO _DTO)
+        public IActionResult Register(User_Register users)
         {
-            var users = _mapper.Map<User>(_DTO);
             bool tmp = _userRepository.Register(users);
             if(tmp)
             {
@@ -43,7 +42,7 @@ namespace ITJobs.Controllers
         [HttpGet("GetById")]
         public IActionResult GetById(long userid)
         {
-            var user = _mapper.Map<User>(_userRepository.GetById(userid));
+            var user = _mapper.Map<UserDTO>(_userRepository.GetById(userid));
             return Ok(user);
         }
 

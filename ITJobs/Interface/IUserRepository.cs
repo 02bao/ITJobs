@@ -4,7 +4,7 @@ namespace ITJobs.Interface
 {
     public interface IUserRepository
     {
-        bool Register(User user);
+        bool Register(User_Register user);
         ICollection<User> GetAll();
         User GetById(long userid);
         long Login(User_login users);
