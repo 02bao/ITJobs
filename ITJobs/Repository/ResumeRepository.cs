@@ -12,7 +12,7 @@ namespace ITJobs.Repository
         {
             _context = context;
         }
-        public bool CreateNewCV(long userid, Resume cv)
+        public bool CreateNewCV(long userid, Resume_create cv)
         {
             User user = _context.Users.SingleOrDefault( s=> s.Id == userid );
             if(user == null)

@@ -20,10 +20,9 @@ namespace ITJobs.Controllers
         }
 
         [HttpPost("CreateNewCv")]
-        public IActionResult CreateNewCv(long userid, [FromBody] ResumeDTO _DTO)
+        public IActionResult CreateNewCv(long userid, Resume_create create)
         {
-            var users = _mapper.Map<Resume>(_DTO);
-            bool tmp = _resumeRepository.CreateNewCV(userid, users);
+            bool tmp = _resumeRepository.CreateNewCV(userid, create);
             if(tmp)
             {
                 return Ok("Create New CV Successfully");
