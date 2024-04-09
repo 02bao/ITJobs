@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ITJobs.Interface;
+using ITJobs.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITJobs.Controllers
@@ -15,6 +16,13 @@ namespace ITJobs.Controllers
         {
             _jobSearchRepository = jobSearchRepository;
             _mapper = mapper;
+        }
+
+        [HttpPost("JobSearch")]
+        public IActionResult JobSearch(long userid, JobDesired job)
+        {
+            var search = _jobSearchRepository.JobSearch(userid, job);
+            return Ok(search);
         }
     }
 }
