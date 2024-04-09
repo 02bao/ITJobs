@@ -16,4 +16,16 @@
         public string JobField { get; set; }
         public List<string>? Comment { get; set; }
     }
+
+    public class UserPost_Create
+    {
+        public string NamePost { get; set; }
+        public string Content { get; set; }
+        public string? Image { get; set; }
+        public DateTime? Timestamp { get; set; } = DateTime.UtcNow;
+        public int Parent { get; set; }
+        public string WokingMode { get; set; }
+        public string JobStyle { get; set; }
+        public string JobField { get; set; }
+    }
 }

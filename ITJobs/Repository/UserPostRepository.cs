@@ -13,7 +13,7 @@ namespace ITJobs.Repository
             _context = context;
         }
 
-        public bool CreateNewPost(long userid, UserPost post)
+        public bool CreateNewPost(long userid, UserPost_Create post)
         {
             User user = _context.Users.SingleOrDefault( s => s.Id == userid );
             if(user == null)
@@ -27,9 +27,9 @@ namespace ITJobs.Repository
                 Content = post.Content,
                 Image = post.Image,
                 Timestamp = DateTime.UtcNow,
-                Like = post.Like,
+                Like = null,
                 Parent = post.Parent,
-                Comment = post.Comment,
+                Comment = null,
                 WokingMode = post.WokingMode,
                 JobField = post.JobField,
                 JobStyle = post.JobStyle,
