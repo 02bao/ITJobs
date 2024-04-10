@@ -43,5 +43,12 @@ namespace ITJobs.Controllers
             var jobs = _mapper.Map<JobDTO>(_jobRepository.GetById(id));
             return Ok(jobs);
         }
+
+        [HttpGet("GetByCompanyId")]
+        public IActionResult GetByCompanyId(long companyid)
+        {
+            var jobs = _mapper.Map<List<JobDTO>>(_jobRepository.GetByCompanyId(companyid));
+            return Ok(jobs);
+        }
     }
 }

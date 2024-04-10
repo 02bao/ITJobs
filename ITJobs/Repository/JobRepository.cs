@@ -42,9 +42,30 @@ namespace ITJobs.Repository
             return _context.Jobs.ToList();
         }
 
-        public Job GetByCompanyId(long companyId)
+        public List<Job> GetByCompanyId(long companyId)
         {
-            throw new NotImplementedException();
+            List<Job> response = new List<Job>();
+            var companies = _context.Jobs.Where( s => s.Companies.Id == companyId ).ToList();
+            if(companies == null )
+            {
+                return response;
+            }
+            foreach (var company in companies)
+            {
+                response.Add(new Job
+                {
+                    Id = company.Id,
+                    NameJob = company.NameJob,
+                    Position = company.Position,
+                    Location = company.Location,
+                    Salary = company.Salary,
+                    Experience = company.Experience,
+                    Field = company.Field,
+                    Deadline=company.Deadline,
+                    Requirements=company.Requirements,
+                });
+            }
+            return response;
         }
 
         public Job GetById(long id)

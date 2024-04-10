@@ -7,7 +7,7 @@ namespace ITJobs.Interface
         bool CreateNewJob(long Companyid, Job_Create job, DateTime NewDate);
         ICollection<Job> GetAll();
         Job GetById(long id);
-        Job GetByCompanyId(long companyId);
+        List<Job> GetByCompanyId(long companyId);
 
     }
 }
