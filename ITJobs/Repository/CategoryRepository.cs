@@ -34,7 +34,14 @@ namespace ITJobs.Repository
 
         public bool Delete(long id)
         {
-            throw new NotImplementedException();
+            var categories = _context.Categories.SingleOrDefault( s => s.Id == id);
+            if(categories == null)
+            {
+                return false;
+            }
+            _context.Categories.Remove(categories);
+            _context.SaveChanges();
+            return true;
         }
 
         public ICollection<Category> GetAllCategories()
@@ -44,7 +51,19 @@ namespace ITJobs.Repository
 
         public List<Category> GetByCompanyId(long companyId)
         {
-            throw new NotImplementedException();
+            var companies = _context.Categories.Where(s => s.Companies.Id == companyId).ToList();
+            List<Category> response = new List<Category>();
+            foreach(var company in companies)
+            {
+                response.Add(new Category
+                {
+                    Id = company.Id,
+                    Name = company.Name,
+                    Description = company.Description,
+                });
+            }
+            return response;
+
         }
 
         public Category GetById(long id)
@@ -54,7 +73,9 @@ namespace ITJobs.Repository
 
         public bool Update(Category category)
         {
-            throw new NotImplementedException();
+            _context.Update(category);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

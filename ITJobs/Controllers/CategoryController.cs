@@ -43,5 +43,35 @@ namespace ITJobs.Controllers
             var categories = _mapper.Map<CategoryDTO>(_categoryRepository.GetById(id));
             return Ok(categories);
         }
+
+        [HttpGet("GetByCompanyId")]
+        public IActionResult GetByCompanyId(long companyid)
+        {
+            var categories = _mapper.Map<List<CategoryDTO>>(_categoryRepository.GetByCompanyId(companyid));
+            return Ok(categories);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromBody] CategoryDTO _DTO)
+        {
+            var categories = _mapper.Map<Category>(_DTO);
+            bool tmp = _categoryRepository.Update(categories);
+            if( tmp )
+            {
+                return Ok("Update Successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+        }
+
+        [HttpDelete("Delete")]
+        public IActionResult Delete(long id)
+        {
+            bool tmp = _categoryRepository.Delete(id);
+            if(tmp )
+            {
+                return Ok("Delete Successfully");
+            }
+            return BadRequest("Delete Failed, Please try again!");
+        }
     }
 }
