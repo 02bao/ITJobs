@@ -21,7 +21,7 @@ namespace ITJobs.Controllers
         [HttpPost("JobSearch")]
         public IActionResult JobSearch(long userid, JobDesired job)
         {
-            var search = _jobSearchRepository.JobSearch(userid, job);
+            var search = _jobSearchRepository.SearchForUser(userid, job);
             return Ok(search);
         }
     }

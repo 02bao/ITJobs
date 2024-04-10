@@ -6,6 +6,7 @@ namespace ITJobs.DTO
     {
         public long Id { get; set; }
         public string NamePost { get; set; }
+        public string Location { get; set; }
         public string Content { get; set; }
         public string? Image { get; set; }
         public int? Like { get; set; }

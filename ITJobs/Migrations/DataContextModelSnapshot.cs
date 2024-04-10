@@ -110,6 +110,10 @@ namespace ITJobs.Migrations
                     b.Property<int?>("Like")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("NamePost")
                         .IsRequired()
                         .HasColumnType("text");

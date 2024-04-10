@@ -23,6 +23,7 @@ namespace ITJobs.Repository
             var NewPost = new CompanyPost
             {
                 NamePost = post.NamePost,
+                Location = post.Location,
                 Content = post.Content,
                 Image = null,
                 Like = null,
@@ -69,6 +70,7 @@ namespace ITJobs.Repository
                 {
                     Id = company.Id,
                     NamePost = company.NamePost,
+                    Location = company.Location,
                     Content = company.Content,
                     Image = company.Image,
                     Like = company.Like,
@@ -101,6 +103,7 @@ namespace ITJobs.Repository
                 return false;
             }
             postid.NamePost = post.NamePost;
+            postid.Location = post.Location;
             postid.Content = post.Content;
             postid.Like = post.Like;
             postid.Parent = post.Parent;

@@ -42,7 +42,7 @@ namespace ITJobs.Migrations
                     Location = table.Column<string>(type: "text", nullable: false),
                     Industry = table.Column<string>(type: "text", nullable: false),
                     Website = table.Column<string>(type: "text", nullable: false),
-                    size = table.Column<long>(type: "bigint", nullable: false),
+                    size = table.Column<long>(type: "bigint", nullable: true),
                     UserId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -90,6 +90,7 @@ namespace ITJobs.Migrations
                     CompaniesId = table.Column<long>(type: "bigint", nullable: false),
                     NamePost = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false),
                     Image = table.Column<string>(type: "text", nullable: true),
                     Like = table.Column<int>(type: "integer", nullable: true),
                     Parent = table.Column<int>(type: "integer", nullable: false),
@@ -97,7 +98,7 @@ namespace ITJobs.Migrations
                     Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     ExpirationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Salary = table.Column<string>(type: "text", nullable: false),
-                    ApplicationCount = table.Column<int>(type: "integer", nullable: false),
+                    ApplicationCount = table.Column<int>(type: "integer", nullable: true),
                     WorkingMode = table.Column<string>(type: "text", nullable: false),
                     JobStyle = table.Column<string>(type: "text", nullable: false),
                     Field = table.Column<string>(type: "text", nullable: false)
@@ -111,6 +112,36 @@ namespace ITJobs.Migrations
                         principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobSearches",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UsersId = table.Column<long>(type: "bigint", nullable: true),
+                    CompaniesId = table.Column<long>(type: "bigint", nullable: true),
+                    Position = table.Column<string>(type: "text", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false),
+                    Salary_Range = table.Column<string>(type: "text", nullable: true),
+                    Experience_Level = table.Column<string>(type: "text", nullable: true),
+                    Filed = table.Column<string>(type: "text", nullable: true),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobSearches", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JobSearches_Companies_CompaniesId",
+                        column: x => x.CompaniesId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_JobSearches_Users_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -192,6 +223,16 @@ namespace ITJobs.Migrations
                 column: "CompaniesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_JobSearches_CompaniesId",
+                table: "JobSearches",
+                column: "CompaniesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobSearches_UsersId",
+                table: "JobSearches",
+                column: "UsersId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Resume_UserId",
                 table: "Resume",
                 column: "UserId");
@@ -222,6 +263,9 @@ namespace ITJobs.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CompanyPosts");
+
+            migrationBuilder.DropTable(
+                name: "JobSearches");
 
             migrationBuilder.DropTable(
                 name: "Resume");

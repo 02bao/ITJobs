@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITJobs.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240409062449_6")]
-    partial class _6
+    [Migration("20240410054953_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,7 +83,7 @@ namespace ITJobs.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("ApplicationCount")
+                    b.Property<int?>("ApplicationCount")
                         .HasColumnType("integer");
 
                     b.Property<List<string>>("Comment")
@@ -113,6 +113,10 @@ namespace ITJobs.Migrations
                     b.Property<int?>("Like")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("NamePost")
                         .IsRequired()
                         .HasColumnType("text");
@@ -136,6 +140,49 @@ namespace ITJobs.Migrations
                     b.HasIndex("CompaniesId");
 
                     b.ToTable("CompanyPosts");
+                });
+
+            modelBuilder.Entity("ITJobs.Models.JobSearch", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("CompaniesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Experience_Level")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Filed")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Salary_Range")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("UsersId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompaniesId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("JobSearches");
                 });
 
             modelBuilder.Entity("ITJobs.Models.Resume", b =>
@@ -324,12 +371,27 @@ namespace ITJobs.Migrations
             modelBuilder.Entity("ITJobs.Models.CompanyPost", b =>
                 {
                     b.HasOne("ITJobs.Models.Company", "Companies")
-                        .WithMany()
+                        .WithMany("CompanyPosts")
                         .HasForeignKey("CompaniesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Companies");
+                });
+
+            modelBuilder.Entity("ITJobs.Models.JobSearch", b =>
+                {
+                    b.HasOne("ITJobs.Models.Company", "Companies")
+                        .WithMany()
+                        .HasForeignKey("CompaniesId");
+
+                    b.HasOne("ITJobs.Models.User", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersId");
+
+                    b.Navigation("Companies");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ITJobs.Models.Resume", b =>
@@ -354,7 +416,7 @@ namespace ITJobs.Migrations
             modelBuilder.Entity("ITJobs.Models.UserPost", b =>
                 {
                     b.HasOne("ITJobs.Models.User", "User")
-                        .WithMany()
+                        .WithMany("UserPosts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -381,9 +443,16 @@ namespace ITJobs.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ITJobs.Models.Company", b =>
+                {
+                    b.Navigation("CompanyPosts");
+                });
+
             modelBuilder.Entity("ITJobs.Models.User", b =>
                 {
                     b.Navigation("Companies");
+
+                    b.Navigation("UserPosts");
 
                     b.Navigation("UserProfiles");
                 });

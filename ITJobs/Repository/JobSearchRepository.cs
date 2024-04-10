@@ -17,8 +17,8 @@ namespace ITJobs.Repository
         {
             List<JobSearch> response = new List<JobSearch>();
             var NewDate = DateTime.Parse(job.Timestamp.ToString()).ToUniversalTime();
-            var user = _context.Users.SingleOrDefault( s => s.Id  == userid );
-            if( user == null )
+            var user = _context.Users.SingleOrDefault(s => s.Id == userid);
+            if (user == null)
             {
                 return response;
             }
@@ -38,11 +38,11 @@ namespace ITJobs.Repository
             return response;
         }
 
-        public List<CompanyPost> JobSearch(long userid, JobDesired job)
+        public List<CompanyPost> SearchForUser(long userid, JobDesired job)
         {
             List<JobSearch> Desiredes = GetJobDesired(userid, job);
             List<CompanyPost> posts = new List<CompanyPost>();
-            foreach(var desired in Desiredes)
+            foreach (var desired in Desiredes)
             {
                 string position = desired.Position;
                 string location = desired.Location;
@@ -50,7 +50,7 @@ namespace ITJobs.Repository
                 string Salary = desired.Salary_Range;
                 string Experiences = desired.Experience_Level;
 
-                foreach(var post in _context.CompanyPosts)
+                foreach (var post in _context.CompanyPosts)
                 {
                     int matching = 0;
                     if (!string.IsNullOrEmpty(position) && post.NamePost.ToLower().Contains(position.ToLower()))
@@ -75,7 +75,7 @@ namespace ITJobs.Repository
                         matching++;
                     }
 
-                    if(matching >= 2) 
+                    if (matching >= 2)
                     {
                         posts.Add(post);
                     }
