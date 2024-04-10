@@ -37,6 +37,18 @@ namespace ITJobs.Repository
             return true;
         }
 
+        public bool Delete(long id)
+        {
+            var job = _context.Jobs.SingleOrDefault(s => s.Id == id);
+            if(job == null)
+            {
+                return false;
+            }
+            _context.Jobs.Remove( job );
+            _context.SaveChanges();
+            return true;
+        }
+
         public ICollection<Job> GetAll()
         {
             return _context.Jobs.ToList();
@@ -71,6 +83,13 @@ namespace ITJobs.Repository
         public Job GetById(long id)
         {
             return _context.Jobs.SingleOrDefault(s => s.Id == id);
+        }
+
+        public bool Update(Job job)
+        {
+            _context.Jobs.Update(job);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

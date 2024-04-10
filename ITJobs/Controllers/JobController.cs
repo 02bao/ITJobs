@@ -50,5 +50,28 @@ namespace ITJobs.Controllers
             var jobs = _mapper.Map<List<JobDTO>>(_jobRepository.GetByCompanyId(companyid));
             return Ok(jobs);
         }
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromBody] JobDTO _DTO) 
+        {
+            var job = _mapper.Map<Job>(_DTO);
+            bool tmp = _jobRepository.Update(job);
+            if( tmp)
+            {
+                return Ok("Update Successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+        }
+
+        [HttpDelete("Delete")]
+        public IActionResult Delete(long id)
+        {
+            bool tmp = _jobRepository.Delete(id);
+            if(tmp)
+            {
+                return Ok("Delete Succesfully");
+            }
+            return BadRequest("Delete Failed, Please try again!");
+        }
     }
 }
