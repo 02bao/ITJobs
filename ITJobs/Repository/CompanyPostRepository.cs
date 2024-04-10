@@ -24,6 +24,7 @@ namespace ITJobs.Repository
             {
                 NamePost = post.NamePost,
                 Location = post.Location,
+                Position = post.Position,
                 Content = post.Content,
                 Image = null,
                 Like = null,
@@ -35,7 +36,7 @@ namespace ITJobs.Repository
                 Salary = post.Salary,
                 WorkingMode = post.WorkingMode,
                 Field = post.Field,
-                JobStyle = post.JobStyle,
+                Experience = post.Experience,
                 Companies = company,
             };
             _context.CompanyPosts.Add(NewPost);
@@ -71,6 +72,7 @@ namespace ITJobs.Repository
                     Id = company.Id,
                     NamePost = company.NamePost,
                     Location = company.Location,
+                    Position = company.Position,
                     Content = company.Content,
                     Image = company.Image,
                     Like = company.Like,
@@ -82,7 +84,7 @@ namespace ITJobs.Repository
                     Salary = company.Salary,
                     WorkingMode = company.WorkingMode,
                     Field = company.Field,
-                    JobStyle = company.JobStyle,
+                    Experience = company.Experience,
                 });
             }
             return response;
@@ -104,6 +106,7 @@ namespace ITJobs.Repository
             }
             postid.NamePost = post.NamePost;
             postid.Location = post.Location;
+            postid.Position = post.Position;
             postid.Content = post.Content;
             postid.Like = post.Like;
             postid.Parent = post.Parent;
@@ -114,7 +117,7 @@ namespace ITJobs.Repository
             postid.Salary = post.Salary;
             postid.WorkingMode = post.WorkingMode;
             postid.Field = post.Field;
-            postid.JobStyle = post.JobStyle;
+            postid.Experience = post.Experience;
             if(images != null)
             {
                 CloudinaryRepository cloudinary = new CloudinaryRepository();

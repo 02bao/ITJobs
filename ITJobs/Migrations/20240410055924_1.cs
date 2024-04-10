@@ -91,6 +91,7 @@ namespace ITJobs.Migrations
                     NamePost = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
                     Location = table.Column<string>(type: "text", nullable: false),
+                    Position = table.Column<string>(type: "text", nullable: false),
                     Image = table.Column<string>(type: "text", nullable: true),
                     Like = table.Column<int>(type: "integer", nullable: true),
                     Parent = table.Column<int>(type: "integer", nullable: false),
@@ -100,7 +101,7 @@ namespace ITJobs.Migrations
                     Salary = table.Column<string>(type: "text", nullable: false),
                     ApplicationCount = table.Column<int>(type: "integer", nullable: true),
                     WorkingMode = table.Column<string>(type: "text", nullable: false),
-                    JobStyle = table.Column<string>(type: "text", nullable: false),
+                    Experience = table.Column<string>(type: "text", nullable: false),
                     Field = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>

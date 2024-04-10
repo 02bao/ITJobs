@@ -53,11 +53,11 @@ namespace ITJobs.Repository
                 foreach (var post in _context.CompanyPosts)
                 {
                     int matching = 0;
-                    if (!string.IsNullOrEmpty(position) && post.NamePost.ToLower().Contains(position.ToLower()))
+                    if (!string.IsNullOrEmpty(position) && post.Position.ToLower().Contains(position.ToLower()))
                     {
                         matching++;
                     }
-                    if (!string.IsNullOrEmpty(location) && post.Companies.Location.ToLower().Contains(location.ToLower()))
+                    if (!string.IsNullOrEmpty(location) && post.Location.ToLower().Contains(location.ToLower()))
                     {
                         matching++;
 
@@ -70,7 +70,7 @@ namespace ITJobs.Repository
                     {
                         matching++;
                     }
-                    if (!string.IsNullOrEmpty(Experiences) && post.JobStyle.ToLower().Contains(Experiences.ToLower()))
+                    if (!string.IsNullOrEmpty(Experiences) && post.Experience.ToLower().Contains(Experiences.ToLower()))
                     {
                         matching++;
                     }

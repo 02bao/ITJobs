@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITJobs.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240410054953_1")]
+    [Migration("20240410055924_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -96,6 +96,10 @@ namespace ITJobs.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Experience")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -104,10 +108,6 @@ namespace ITJobs.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Image")
-                        .HasColumnType("text");
-
-                    b.Property<string>("JobStyle")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("Like")
@@ -123,6 +123,10 @@ namespace ITJobs.Migrations
 
                     b.Property<int>("Parent")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Salary")
                         .IsRequired()
