@@ -36,5 +36,20 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public ICollection<Job> GetAll()
+        {
+            return _context.Jobs.ToList();
+        }
+
+        public Job GetByCompanyId(long companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Job GetById(long id)
+        {
+            return _context.Jobs.SingleOrDefault(s => s.Id == id);
+        }
     }
 }
