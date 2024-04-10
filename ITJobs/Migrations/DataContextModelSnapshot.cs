@@ -23,6 +23,32 @@ namespace ITJobs.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ITJobs.Models.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CompaniesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompaniesId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("ITJobs.Models.Company", b =>
                 {
                     b.Property<long>("Id")
@@ -151,6 +177,9 @@ namespace ITJobs.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("CategoriesId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("CompaniesId")
                         .HasColumnType("bigint");
 
@@ -178,7 +207,6 @@ namespace ITJobs.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Requirements")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Salary")
@@ -186,6 +214,8 @@ namespace ITJobs.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriesId");
 
                     b.HasIndex("CompaniesId");
 
@@ -407,6 +437,17 @@ namespace ITJobs.Migrations
                     b.ToTable("UserProfiles");
                 });
 
+            modelBuilder.Entity("ITJobs.Models.Category", b =>
+                {
+                    b.HasOne("ITJobs.Models.Company", "Companies")
+                        .WithMany()
+                        .HasForeignKey("CompaniesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Companies");
+                });
+
             modelBuilder.Entity("ITJobs.Models.Company", b =>
                 {
                     b.HasOne("ITJobs.Models.User", "User")
@@ -431,11 +472,19 @@ namespace ITJobs.Migrations
 
             modelBuilder.Entity("ITJobs.Models.Job", b =>
                 {
+                    b.HasOne("ITJobs.Models.Category", "Categories")
+                        .WithMany("Jobs")
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ITJobs.Models.Company", "Companies")
                         .WithMany()
                         .HasForeignKey("CompaniesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Categories");
 
                     b.Navigation("Companies");
                 });
@@ -502,6 +551,11 @@ namespace ITJobs.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ITJobs.Models.Category", b =>
+                {
+                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("ITJobs.Models.Company", b =>

@@ -82,6 +82,27 @@ namespace ITJobs.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    CompaniesId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Companies_CompaniesId",
+                        column: x => x.CompaniesId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CompanyPosts",
                 columns: table => new
                 {
@@ -213,6 +234,45 @@ namespace ITJobs.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Jobs",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompaniesId = table.Column<long>(type: "bigint", nullable: false),
+                    CategoriesId = table.Column<long>(type: "bigint", nullable: false),
+                    NameJob = table.Column<string>(type: "text", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false),
+                    Position = table.Column<string>(type: "text", nullable: false),
+                    Salary = table.Column<string>(type: "text", nullable: false),
+                    Experience = table.Column<string>(type: "text", nullable: false),
+                    Field = table.Column<string>(type: "text", nullable: false),
+                    Requirements = table.Column<string>(type: "text", nullable: true),
+                    Deadline = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Jobs_Categories_CategoriesId",
+                        column: x => x.CategoriesId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Jobs_Companies_CompaniesId",
+                        column: x => x.CompaniesId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CompaniesId",
+                table: "Categories",
+                column: "CompaniesId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_UserId",
                 table: "Companies",
@@ -221,6 +281,16 @@ namespace ITJobs.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CompanyPosts_CompaniesId",
                 table: "CompanyPosts",
+                column: "CompaniesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_CategoriesId",
+                table: "Jobs",
+                column: "CategoriesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_CompaniesId",
+                table: "Jobs",
                 column: "CompaniesId");
 
             migrationBuilder.CreateIndex(
@@ -266,6 +336,9 @@ namespace ITJobs.Migrations
                 name: "CompanyPosts");
 
             migrationBuilder.DropTable(
+                name: "Jobs");
+
+            migrationBuilder.DropTable(
                 name: "JobSearches");
 
             migrationBuilder.DropTable(
@@ -275,10 +348,13 @@ namespace ITJobs.Migrations
                 name: "UserPosts");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "UserProfiles");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Users");

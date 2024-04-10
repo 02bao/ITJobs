@@ -4,6 +4,7 @@
     {
         public long Id { get; set; }
         public Company Companies { get; set; }
+        public Category Categories { get; set; }
         public string NameJob { get; set; }
         public string Location { get; set; }
         public string Position { get; set; }

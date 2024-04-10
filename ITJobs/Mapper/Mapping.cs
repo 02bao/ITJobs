@@ -24,6 +24,8 @@ namespace ITJobs.Mapper
             CreateMap<JobSearchDTO, JobSearch>();
             CreateMap<JobDTO, Job>();
             CreateMap<Job, JobDTO>();
+            CreateMap<Category, CategoryDTO>();
+            CreateMap<CategoryDTO, Category>();
         }
     }
 }
