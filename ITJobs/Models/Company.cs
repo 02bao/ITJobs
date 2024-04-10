@@ -13,6 +13,8 @@
         public long? size { get; set; }
         public User User { get; set; }
         public List<CompanyPost> CompanyPosts { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Job> Jobs { get; set; }
     }
 
     public class Company_Create
