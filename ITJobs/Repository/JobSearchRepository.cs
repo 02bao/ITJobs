@@ -18,9 +18,9 @@ namespace ITJobs.Repository
             return _context.JobSearches.ToList();
         }
 
-        public JobDesired GetByIdForUser(long userid)
+        public JobSearch GetById(long id)
         {
-            throw new NotImplementedException();
+            return _context.JobSearches.SingleOrDefault(s => s.Id == id);
         }
 
         public List<JobSearch> GetJobDesired(long userid, JobDesired job)
