@@ -7,6 +7,8 @@ namespace ITJobs.Interface
     {
         List<JobSearch> GetJobDesired(long userid, JobDesired job);
         List<CompanyPost> SearchForUser(long userid, JobDesired job);
+        ICollection<JobSearch> GetAll();
+        JobDesired GetByIdForUser(long userid);
 
     }
 }

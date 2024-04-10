@@ -13,6 +13,16 @@ namespace ITJobs.Repository
             _context = context;
         }
 
+        public ICollection<JobSearch> GetAll()
+        {
+            return _context.JobSearches.ToList();
+        }
+
+        public JobDesired GetByIdForUser(long userid)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<JobSearch> GetJobDesired(long userid, JobDesired job)
         {
             List<JobSearch> response = new List<JobSearch>();
@@ -42,6 +52,7 @@ namespace ITJobs.Repository
         {
             List<JobSearch> Desiredes = GetJobDesired(userid, job);
             List<CompanyPost> posts = new List<CompanyPost>();
+            List<JobSearch> MatchingDesired = new List<JobSearch>();
             foreach (var desired in Desiredes)
             {
                 string position = desired.Position;
@@ -78,9 +89,21 @@ namespace ITJobs.Repository
                     if (matching >= 2)
                     {
                         posts.Add(post);
+
+                        var Desired = new JobSearch
+                        {
+                            Location = post.Location,
+                            Position = post.Position,
+                            Filed = post.Field,
+                            Salary_Range = post.Salary,
+                            Experience_Level = post.Experience,
+                        };
+                        MatchingDesired.Add(Desired);
                     }
                 }
             }
+            _context.JobSearches.AddRange(MatchingDesired);
+            _context.SaveChanges();
             return posts;
         }
     }
