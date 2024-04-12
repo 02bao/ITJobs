@@ -63,7 +63,8 @@ namespace ITJobs.Repository
 
         public Application GetById(long id)
         {
-            throw new NotImplementedException();
+            var applications = _context.Applications.SingleOrDefault(s => s.Id == id);
+            return applications;
         }
     }
 }

@@ -9,4 +9,11 @@ namespace ITJobs.DTO
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
         public Status_Apply Status_ { get; set; } = Status_Apply.Unsent;
     }
+    public enum Status_Apply
+    {
+        Unsent,
+        Pending,
+        Accepted,
+        Rejected,
+    }
 }
