@@ -4,6 +4,6 @@ namespace ITJobs.Interface
 {
     public interface IApplicationRepository
     {
-        bool CreateNewApply(long userid, long companyid, Application_Create apply);
+        bool AddNewApply(long userid, long jobid, long resumeid);
     }
 }

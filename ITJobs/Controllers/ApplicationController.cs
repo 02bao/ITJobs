@@ -16,5 +16,16 @@ namespace ITJobs.Controllers
             _applicationRepository = applicationRepository;
             _mapper = mapper;
         }
+
+        [HttpPost("AddNewApply")]
+        public IActionResult AddNewApply(long userid, long jobid, long resumeid)
+        {
+            bool tmp = _applicationRepository.AddNewApply(userid, jobid, resumeid);
+            if(tmp)
+            {
+                return Ok("Apply Successfully, Please wait Company response");
+            }
+            return BadRequest("Apply Failed, Please try again!");
+        }
     }
 }

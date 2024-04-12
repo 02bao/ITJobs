@@ -6,6 +6,7 @@ namespace ITJobs.DTO
     {
         public long Id { get; set; }
         public string Letter { get; set; }
-        public Status_Apply Status_ { get; set; } = Status_Apply.Pending;
+        public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
+        public Status_Apply Status_ { get; set; } = Status_Apply.Unsent;
     }
 }

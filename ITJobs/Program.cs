@@ -28,6 +28,7 @@ namespace ITJobs
             builder.Services.AddScoped<IJobSearchRepository, JobSearchRepository>();
             builder.Services.AddScoped<IJobRepository, JobRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
