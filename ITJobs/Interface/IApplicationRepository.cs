@@ -9,7 +9,7 @@ namespace ITJobs.Interface
         Application GetById(long id);
         List<Application> GetByUserId(long userid);
         bool Update(Application apply);
-        bool Delet(long id);
+        bool Delete(long id);
 
     }
 }

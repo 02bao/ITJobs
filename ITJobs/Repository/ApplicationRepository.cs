@@ -56,9 +56,16 @@ namespace ITJobs.Repository
             return true;
         }
 
-        public bool Delet(long id)
+        public bool Delete(long id)
         {
-            throw new NotImplementedException();
+            var apply = _context.Applications.SingleOrDefault(s => s.Id == id);
+            if(apply == null)
+            {
+                return false;
+            }
+            _context.Applications.Remove(apply);
+            _context.SaveChanges();
+            return true;
         }
 
         public ICollection<Application> GetAll()
