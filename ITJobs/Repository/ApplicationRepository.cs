@@ -95,7 +95,9 @@ namespace ITJobs.Repository
 
         public bool Update(Application apply)
         {
-            throw new NotImplementedException();
+            _context.Update(apply);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

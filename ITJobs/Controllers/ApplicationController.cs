@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ITJobs.DTO;
 using ITJobs.Interface;
+using ITJobs.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITJobs.Controllers
@@ -48,6 +49,18 @@ namespace ITJobs.Controllers
         {
             var applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetByUserId(userId));
             return Ok(applications);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromBody] ApplicationDTO _DTO)
+        {
+            var applies = _mapper.Map<Application>(_DTO);
+            bool tmp = _applicationRepository.Update(applies);
+            if(tmp)
+            {
+                return Ok("Update successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
         }
     }
 }
