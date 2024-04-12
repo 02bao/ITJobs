@@ -55,5 +55,15 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public ICollection<Application> GetAll()
+        {
+            return _context.Applications.ToList();
+        }
+
+        public Application GetById(long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

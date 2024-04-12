@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ITJobs.DTO;
 using ITJobs.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,13 @@ namespace ITJobs.Controllers
                 return Ok("Apply Successfully, Please wait Company response");
             }
             return BadRequest("Apply Failed, Please try again!");
+        }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetAll());
+            return Ok(applications);
         }
     }
 }
