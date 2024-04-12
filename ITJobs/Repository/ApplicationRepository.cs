@@ -20,8 +20,9 @@ namespace ITJobs.Repository
             {
                 return false;
             }
-            var job = _context.Jobs.Include(s => s.Companies).Where(s => s.Id == jobid
-                                                                && s.Deadline > DateTime.UtcNow).FirstOrDefault();
+            var job = _context.Jobs.Include(s => s.Companies).ThenInclude(s => s.Categories).Where(s => s.Id == jobid &&
+                                                                s.Categories.Companies.Id == jobid &&
+                                                                s.Deadline > DateTime.UtcNow).FirstOrDefault();
 
             if(job == null)
             {
@@ -29,8 +30,10 @@ namespace ITJobs.Repository
             }
             if(resumeid != null)
             {
-                var resumes = _context.Resume.Include( s => s.User).Where( s => s.Id == resumeid &&
-                                                                    s.User.Id == userid).FirstOrDefault();
+                var resumes = _context.Resume.Include( s => s.User).ThenInclude( s => s.UserProfiles)
+                                                                    .Where( s => s.Id == resumeid &&
+                                                                    s.User.Id == userid &&
+                                                                    s.UserProfiles.User.Id == userid).FirstOrDefault();
                 if(resumes != null)
                 {
                     Application NewApply = new Application()
