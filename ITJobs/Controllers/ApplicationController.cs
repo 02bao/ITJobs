@@ -42,5 +42,12 @@ namespace ITJobs.Controllers
             var applications = _mapper.Map<ApplicationDTO>(_applicationRepository.GetById(id));
             return Ok(applications);
         }
+
+        [HttpGet("GetByUserid")]
+        public IActionResult GetByUserid([FromQuery] long userId)
+        {
+            var applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetByUserId(userId));
+            return Ok(applications);
+        }
     }
 }

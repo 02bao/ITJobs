@@ -7,7 +7,7 @@ namespace ITJobs.DTO
         public long Id { get; set; }
         public string Letter { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
-        public Status_Apply Status_ { get; set; } = Status_Apply.Unsent;
+        public Status_Apply Status_ { get; set; } = Status_Apply.Pending;
     }
     public enum Status_Apply
     {

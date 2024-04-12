@@ -56,6 +56,11 @@ namespace ITJobs.Repository
             return true;
         }
 
+        public bool Delet(long id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<Application> GetAll()
         {
             return _context.Applications.ToList();
@@ -65,6 +70,32 @@ namespace ITJobs.Repository
         {
             var applications = _context.Applications.SingleOrDefault(s => s.Id == id);
             return applications;
+        }
+
+        public List<Application> GetByUserId(long userid)
+        {
+            List<Application> response = new List<Application>();
+            var users = _context.Applications.Where( s => s.Users.Id == userid).ToList();
+            if(users == null)
+            {
+                return response;
+            }
+            foreach(var user in users )
+            {
+                response.Add(new Application()
+                {
+                    Id = user.Id,
+                    TimeStamp = user.TimeStamp,
+                    Letter = user.Letter,
+                    Status = user.Status,
+                });
+            }
+            return response;
+        }
+
+        public bool Update(Application apply)
+        {
+            throw new NotImplementedException();
         }
     }
 }
