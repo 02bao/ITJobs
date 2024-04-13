@@ -14,7 +14,7 @@ namespace ITJobs.Repository
             _context = context;
         }
 
-        public bool CreateNewNoti(long userid, long companyid, Noti_Create noti)
+        public bool CreateNewNoti(long userid, long companyid, long applied, Status_Noti status)
         {
             var user = _context.Users.SingleOrDefault( s => s.Id == userid );
             if (user == null)
@@ -30,18 +30,21 @@ namespace ITJobs.Repository
             }
             var applycation = _context.Applications.Include( s => s.Users)
                                                     .Include(s => s.Jobs).ThenInclude(s => s.Companies)
-                                                    .Where( s => s.Users.Id == userid && 
-                                                    s.Jobs.Companies.Id == companyid &&
-                                                    s.TimeStamp < DateTime.UtcNow).FirstOrDefault();
+                                                    .Where(s =>  s.Id == applied &&
+                                                     s.Users.Id == userid && 
+                                                     s.Jobs.Companies.Id == companyid &&
+                                                     s.TimeStamp < DateTime.UtcNow).FirstOrDefault();
             if (applycation != null)
             {
-                var NewNoti = new Notification()
+                Notification NewNoti = new Notification()
                 {
+                    Users = user,
+                    Companies = companies,
                     Applications = applycation,
-                    Content = noti.Content,
+                    Content = "",
                     Timestamp = DateTime.UtcNow,
                     ReadStatus = false,
-                    Status = noti.Status,
+                    Status = status,
                 };
                 _context.Notifications.Add(NewNoti);
             }

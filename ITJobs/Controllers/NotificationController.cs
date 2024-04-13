@@ -19,9 +19,9 @@ namespace ITJobs.Controllers
         }
 
         [HttpPost("CreateNewNoti")]
-        public IActionResult CreateNewNoti(long userid, long companyid, Noti_Create noti)
+        public IActionResult CreateNewNoti(long userid, long companyid, long applied,  Status_Noti status)
         {
-            bool tmp = _notificationRepository.CreateNewNoti(userid, companyid, noti);
+            bool tmp = _notificationRepository.CreateNewNoti(userid, companyid, applied, status);
             if(tmp)
             {
                 return Ok("Create Successfully");
