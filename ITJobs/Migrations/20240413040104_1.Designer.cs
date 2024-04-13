@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITJobs.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240410090243_1")]
+    [Migration("20240413040104_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -25,6 +25,43 @@ namespace ITJobs.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("ITJobs.Models.Application", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("JobsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Letter")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("ResumesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("UsersId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobsId");
+
+                    b.HasIndex("ResumesId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("Applications");
+                });
 
             modelBuilder.Entity("ITJobs.Models.Category", b =>
                 {
@@ -440,10 +477,35 @@ namespace ITJobs.Migrations
                     b.ToTable("UserProfiles");
                 });
 
+            modelBuilder.Entity("ITJobs.Models.Application", b =>
+                {
+                    b.HasOne("ITJobs.Models.Job", "Jobs")
+                        .WithMany()
+                        .HasForeignKey("JobsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ITJobs.Models.Resume", "Resumes")
+                        .WithMany()
+                        .HasForeignKey("ResumesId");
+
+                    b.HasOne("ITJobs.Models.User", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jobs");
+
+                    b.Navigation("Resumes");
+
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("ITJobs.Models.Category", b =>
                 {
                     b.HasOne("ITJobs.Models.Company", "Companies")
-                        .WithMany()
+                        .WithMany("Categories")
                         .HasForeignKey("CompaniesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -482,7 +544,7 @@ namespace ITJobs.Migrations
                         .IsRequired();
 
                     b.HasOne("ITJobs.Models.Company", "Companies")
-                        .WithMany()
+                        .WithMany("Jobs")
                         .HasForeignKey("CompaniesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -563,7 +625,11 @@ namespace ITJobs.Migrations
 
             modelBuilder.Entity("ITJobs.Models.Company", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("CompanyPosts");
+
+                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("ITJobs.Models.User", b =>
