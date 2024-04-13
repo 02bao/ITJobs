@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ITJobs.DTO;
 using ITJobs.Interface;
 using ITJobs.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,5 +29,13 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Create Failed, Please try again!");
         }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var noti = _mapper.Map<List<NotificationDTO>>(_notificationRepository.GetAll());
+            return Ok(noti);
+        }
+
     }
 }

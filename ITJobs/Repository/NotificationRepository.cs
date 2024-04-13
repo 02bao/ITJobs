@@ -51,5 +51,30 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public bool Deleted(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Notification> GetAll()
+        {
+            return _context.Notifications.ToList();
+        }
+
+        public Notification GetById(long id)
+        {
+            return _context.Notifications.SingleOrDefault(s => s.Id == id);
+        }
+
+        public List<Notification> GetByUserid(long userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Notification noti)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
