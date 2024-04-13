@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ITJobs.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITJobs.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240413100807_7")]
+    partial class _7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -313,14 +316,14 @@ namespace ITJobs.Migrations
                     b.Property<long>("ApplicationsId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("Applied")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("CompaniesId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
+
+                    b.Property<long?>("Jobid")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("ReadStatus")
                         .HasColumnType("boolean");

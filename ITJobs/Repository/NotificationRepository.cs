@@ -41,6 +41,7 @@ namespace ITJobs.Repository
                     Users = user,
                     Companies = companies,
                     Applications = applycation,
+                    Applied = applycation.Id,
                     Content = "",
                     Timestamp = DateTime.UtcNow,
                     ReadStatus = false,
@@ -87,6 +88,7 @@ namespace ITJobs.Repository
                 list.Add(new Notification()
                 {
                     Id = item.Id,
+                    Applied = item.Applied,
                     Status = item.Status,
                     Content = item.Content,
                     ReadStatus=item.ReadStatus,
