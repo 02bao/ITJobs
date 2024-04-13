@@ -28,6 +28,8 @@ namespace ITJobs.Mapper
             CreateMap<CategoryDTO, Category>();
             CreateMap<Application, ApplicationDTO>();
             CreateMap<ApplicationDTO, Application>();
+            CreateMap<Notification, NotificationDTO>();
+            CreateMap<NotificationDTO, Notification>();
         }
     }
 }

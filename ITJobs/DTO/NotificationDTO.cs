@@ -1,15 +1,12 @@
-﻿namespace ITJobs.Models
+﻿using ITJobs.Models;
+
+namespace ITJobs.DTO
 {
-    public class Notification
+    public class NotificationDTO
     {
         public long Id { get; set; }
-        public User Users { get; set; }
-        public Company Companies { get; set; }
-        public Application Applications { get; set; }
         public string Content { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
         public bool ReadStatus { get; set; } // true la da doc, false la chua doc
     }
-
-   
 }
