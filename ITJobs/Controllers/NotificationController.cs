@@ -50,6 +50,18 @@ namespace ITJobs.Controllers
             var noti = _mapper.Map<List<NotificationDTO>>(_notificationRepository.GetByUserid(userId));
             return Ok(noti);
         }
+
+        [HttpPut("Update")]
+        public IActionResult Update([FromBody] NotificationDTO noti) 
+        {
+            var notid = _mapper.Map<Notification>(noti);
+            bool tmp = _notificationRepository.Update(notid);
+            if(tmp)
+            {
+                return Ok("Update Successfully");
+            }
+            return BadRequest("Update Failed, Please try again!");
+        }
     }
     
 }

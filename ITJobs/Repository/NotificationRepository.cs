@@ -54,7 +54,14 @@ namespace ITJobs.Repository
 
         public bool Deleted(long id)
         {
-            throw new NotImplementedException();
+            var notid = _context.Notifications.SingleOrDefault( s => s.Id == id);
+            if (notid == null)
+            {
+                return false;
+            }
+            _context.Notifications.Remove(notid);
+            _context.SaveChanges();
+            return true;
         }
 
         public ICollection<Notification> GetAll()
@@ -90,7 +97,9 @@ namespace ITJobs.Repository
 
         public bool Update(Notification noti)
         {
-            throw new NotImplementedException();
+            _context.Notifications.Update(noti);
+            _context.SaveChanges();
+            return true;
         }
     }
 }
