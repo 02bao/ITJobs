@@ -8,7 +8,7 @@ namespace ITJobs.Mapper
     {
         public Mapping()
         {
-            CreateMap<User, UserDTO>();
+            CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<UserDTO, User>();
             CreateMap<UserProfiles, UserProfilesDTO>();
             CreateMap<UserProfilesDTO, UserProfiles>();

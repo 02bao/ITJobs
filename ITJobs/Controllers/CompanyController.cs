@@ -8,22 +8,16 @@ namespace ITJobs.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CompanyController : ControllerBase
+    public class CompanyController(
+        ICompanyRepository _companyRepository,
+        IMapper _mapper) : ControllerBase
     {
-        private readonly ICompanyRepository _companyRepository;
-        private readonly IMapper _mapper;
-
-        public CompanyController(ICompanyRepository companyRepository , IMapper mapper)
-        {
-            _companyRepository = companyRepository;
-            _mapper = mapper;
-        }
 
         [HttpPost("CreateNewCompany")]
         public IActionResult CreateNewCompany(Company_Create create, long userid)
         {
             bool tmp = _companyRepository.CreateNewCompany(create, userid);
-            if(tmp)
+            if (tmp)
             {
                 return Ok("Create New Company Successfully");
             }
@@ -56,8 +50,8 @@ namespace ITJobs.Controllers
         {
             var company = _mapper.Map<Company>(_DTO);
             bool tmp = _companyRepository.Update(company);
-            if(tmp) 
-            { 
+            if (tmp)
+            {
                 return Ok("Change Information Successfully");
             }
             return BadRequest("Change Failed , Please try agian!");
@@ -67,7 +61,7 @@ namespace ITJobs.Controllers
         public IActionResult Delete(long companyid)
         {
             bool tmp = _companyRepository.Delete(companyid);
-            if( tmp)
+            if (tmp)
             {
                 return Ok("Delete Successfully");
             }

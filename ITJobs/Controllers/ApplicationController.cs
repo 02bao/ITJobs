@@ -30,17 +30,23 @@ public class ApplicationController(
 
         // rồi thay vì anh viết 2 dòng return như này
         // anh có thể viết gọn lại thành 1 dòng như sau
+
         // return IsSuccess ? Ok("Apply Successfully, Please wait Company response") : BadRequest("Apply Failed, Please try again!");
+
+
         // nhưng mà ở đây anh trả về method Ok() và BadRequest() nó đã bao hàm ý nghĩa của cái
         // message của anh rồi, nên anh có thể viết gọn như sau
+
         // return IsSuccess ? Ok() : BadRequest();
+
+
         // rồi ngoài các method như Ok(), BadRequest() anh đi tìm hiểu thêm một vài các method khác để dùng trong trường hợp khác
         // ví dụ như Created(), NotFound(), NoContent() 
     }
 
     [HttpGet("GetAll")]
     public IActionResult GetAll()
-    {
+    {// cách khai báo nặc danh
         var applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetAll());
         //List<ApplicationDTO> applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetAll());
         // hồi xưa tôi hay dùng var vì thấy nó ngắn gọn, nhưng mà vừa rồi tôi thấy nó sẽ làm chậm 1 chút xíu quá trình chạy
