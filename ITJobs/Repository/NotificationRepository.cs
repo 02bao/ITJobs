@@ -21,7 +21,9 @@ namespace ITJobs.Repository
             {
                 return false;
             }
-            var companies = _context.Companies.SingleOrDefault( c => c.Id == companyid );
+            var companies = _context.Companies.Include( s => s.User)
+                                              .Where( c => c.Id == companyid &&
+                                               c.User.Id != userid).FirstOrDefault();
             if (companies == null)
             {
                 return false;

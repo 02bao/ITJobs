@@ -20,9 +20,12 @@ namespace ITJobs.Repository
             {
                 return false;
             }
-            var job = _context.Jobs.Include(s => s.Companies).ThenInclude(s => s.Categories).Where(s => s.Id == jobid &&
-                                                                s.Categories.Companies.Id == jobid &&
-                                                                s.Deadline > DateTime.UtcNow).FirstOrDefault();
+            var job = _context.Jobs.Include(s => s.Companies).ThenInclude(s => s.User)
+                                                             .Include(s => s.Companies).ThenInclude(s => s.Categories)
+                                                             .Where(s => s.Id == jobid &&
+                                                              s.Categories.Companies.Id == jobid &&
+                                                              s.Companies.User.Id != userid &&
+                                                              s.Deadline > DateTime.UtcNow).FirstOrDefault();
 
             if(job == null)
             {
