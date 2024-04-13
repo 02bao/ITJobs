@@ -37,6 +37,7 @@ namespace ITJobs.Repository
             {
                 var NewNoti = new Notification()
                 {
+                    Applications = applycation,
                     Content = noti.Content,
                     Timestamp = DateTime.UtcNow,
                     ReadStatus = false,
