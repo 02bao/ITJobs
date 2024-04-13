@@ -73,5 +73,6 @@ namespace ITJobs.Controllers
             }
             return BadRequest("Delete Failed, Please try again!");
         }
+
     }
 }

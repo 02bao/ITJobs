@@ -69,7 +69,23 @@ namespace ITJobs.Repository
 
         public List<Notification> GetByUserid(long userId)
         {
-            throw new NotImplementedException();
+            List<Notification> list = new List<Notification>();
+            var user = _context.Notifications.Where(s => s.Users.Id == userId).ToList();
+            if(user == null)
+            {
+                return list;
+            }
+            foreach(var item in user)
+            {
+                list.Add(new Notification()
+                {
+                    Id = item.Id,
+                    Status = item.Status,
+                    Content = item.Content,
+                    ReadStatus=item.ReadStatus,
+                });
+            }
+            return list;
         }
 
         public bool Update(Notification noti)

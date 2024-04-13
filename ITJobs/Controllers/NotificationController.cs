@@ -37,5 +37,19 @@ namespace ITJobs.Controllers
             return Ok(noti);
         }
 
+        [HttpGet("GetById")]
+        public IActionResult GetById(long id)
+        {
+            var noti = _mapper.Map<NotificationDTO>(_notificationRepository.GetById(id));
+            return Ok(noti);
+        }
+
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId([FromQuery] long userId)
+        {
+            var noti = _mapper.Map<List<NotificationDTO>>(_notificationRepository.GetByUserid(userId));
+            return Ok(noti);
+        }
     }
+    
 }
