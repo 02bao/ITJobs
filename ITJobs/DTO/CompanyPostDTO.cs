@@ -1,6 +1,4 @@
-﻿using ITJobs.Models;
-
-namespace ITJobs.DTO
+﻿namespace ITJobs.DTO
 {
     public class CompanyPostDTO
     {
@@ -9,7 +7,7 @@ namespace ITJobs.DTO
         public string Location { get; set; }
         public string Position { get; set; }
         public string Content { get; set; }
-        public string? Image { get; set; }
+        public string? Image { get; set; } // ở đây để dấu chấm hỏi nó sẽ không warning null cho anh, nhưng mà anh nên tránh dùng nó nếu không cần thiết
         public int? Like { get; set; }
         public int Parent { get; set; }
         public List<string>? Comment { get; set; }

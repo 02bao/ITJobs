@@ -1,4 +1,5 @@
-﻿using ITJobs.Models;
+﻿// dòng này nó che đi nghĩa là nó không có được dùng
+// anh bấm `ctrl + .` để remove nó đi nhé
 
 namespace ITJobs.DTO
 {

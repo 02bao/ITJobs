@@ -1,7 +1,6 @@
 ﻿using ITJobs.Data;
 using ITJobs.Interface;
 using ITJobs.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ITJobs.Repository
 {
@@ -15,13 +14,13 @@ namespace ITJobs.Repository
         }
         public bool CreateNewCompany(Company_Create company, long userid)
         {
-            User user = _context.Users.SingleOrDefault( s => s.Id == userid);
-            if(user == null)
+            User user = _context.Users.SingleOrDefault(s => s.Id == userid); // làm sao để xóa null ở đây
+            if (user == null)
             {
                 return false;
             }
-            var EmailCompany = _context.Companies.SingleOrDefault( s => s.Email == company.Email);
-            if(EmailCompany != null)
+            var EmailCompany = _context.Companies.SingleOrDefault(s => s.Email == company.Email);
+            if (EmailCompany != null)
             {
                 return false;
             }
@@ -37,7 +36,7 @@ namespace ITJobs.Repository
                 size = null,
                 User = user,
             };
-            _context.Companies.Add( Companies );
+            _context.Companies.Add(Companies);
             _context.SaveChanges();
             return true;
         }
@@ -50,8 +49,8 @@ namespace ITJobs.Repository
         public List<Company> GetByUserId(long userid)
         {
             var companies = _context.Companies.Where(s => s.User.Id == userid).ToList();
-            List<Company> response = new List<Company>();
-            foreach(var company in companies)
+            List<Company> response = new();
+            foreach (var company in companies)
             {
                 response.Add(new Company
                 {
@@ -60,7 +59,7 @@ namespace ITJobs.Repository
                     Email = company.Email,
                     Phone = company.Phone,
                     Description = company.Description,
-                    Location= company.Location,
+                    Location = company.Location,
                     Industry = company.Industry,
                     Website = company.Website,
                     size = company.size,

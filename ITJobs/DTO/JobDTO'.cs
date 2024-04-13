@@ -1,8 +1,6 @@
-﻿using ITJobs.Models;
-
-namespace ITJobs.DTO
+﻿namespace ITJobs.DTO
 {
-    public class JobDTO
+    public class JobDTO // tên file sao có dấu ' vậy ba
     {
         public long Id { get; set; }
         public string NameJob { get; set; }

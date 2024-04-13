@@ -16,7 +16,7 @@ namespace ITJobs.Repository
         public bool CreateNewPost(long companyid, CompanyPost_Create post, DateTime experiation)
         {
             var company = _context.Companies.SingleOrDefault(s => s.Id == companyid);
-            if(company == null)
+            if (company == null)
             {
                 return false;
             }
@@ -47,7 +47,7 @@ namespace ITJobs.Repository
         public bool Delete(long postid)
         {
             var post = _context.CompanyPosts.SingleOrDefault(s => s.Id == postid);
-            if(post == null)
+            if (post == null)
             {
                 return false;
             }
@@ -63,9 +63,9 @@ namespace ITJobs.Repository
 
         public List<CompanyPost> GetByCompanyId(long companyid)
         {
-            List<CompanyPost> response = new List<CompanyPost>();
+            List<CompanyPost> response = new();
             var companies = _context.CompanyPosts.Where(s => s.Companies.Id == companyid).ToList();
-            foreach ( var company in companies)
+            foreach (var company in companies)
             {
                 response.Add(new CompanyPost
                 {
@@ -86,6 +86,7 @@ namespace ITJobs.Repository
                     Field = company.Field,
                     Experience = company.Experience,
                 });
+                // sao ở đây không dùng mapper z anh
             }
             return response;
         }
@@ -100,7 +101,7 @@ namespace ITJobs.Repository
         {
             var NewDate = DateTime.Parse(post.ExpirationDate.ToString()).ToUniversalTime();
             var postid = _context.CompanyPosts.SingleOrDefault(s => s.Id == post.Id);
-            if(postid == null)
+            if (postid == null)
             {
                 return false;
             }
@@ -118,11 +119,11 @@ namespace ITJobs.Repository
             postid.WorkingMode = post.WorkingMode;
             postid.Field = post.Field;
             postid.Experience = post.Experience;
-            if(images != null)
+            if (images != null)
             {
-                CloudinaryRepository cloudinary = new CloudinaryRepository();
+                CloudinaryRepository cloudinary = new();
                 string imageURL = cloudinary.uploadFile(images[0]);
-                if(!string.IsNullOrEmpty(imageURL))
+                if (!string.IsNullOrEmpty(imageURL))
                 {
                     postid.Image = imageURL;
                 }
