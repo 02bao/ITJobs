@@ -11,10 +11,10 @@
         public required string Industry { get; set; }
         public required string Website { get; set; }
         public long? size { get; set; }
-        public required User User { get; set; }
-        public required List<CompanyPost> CompanyPosts { get; set; }
-        public required List<Category> Categories { get; set; }
-        public required List<Job> Jobs { get; set; }
+        public  User? User { get; set; }
+        public  List<CompanyPost>? CompanyPosts { get; set; }
+        public  List<Category>? Categories { get; set; }
+        public  List<Job>? Jobs { get; set; }
     }
 
     public class Company_Create

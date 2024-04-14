@@ -4,15 +4,8 @@ using ITJobs.Models;
 
 namespace ITJobs.Repository
 {
-    public class CompanyPostRepository : ICompanyPostRepository
+    public class CompanyPostRepository(DataContext _context) : ICompanyPostRepository
     {
-        private readonly DataContext _context;
-
-        public CompanyPostRepository(DataContext context)
-        {
-            _context = context;
-        }
-
         public bool CreateNewPost(long companyid, CompanyPost_Create post, DateTime experiation)
         {
             var company = _context.Companies.SingleOrDefault(s => s.Id == companyid);

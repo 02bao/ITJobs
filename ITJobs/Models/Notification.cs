@@ -3,9 +3,9 @@
     public class Notification
     {
         public long Id { get; set; }
-        public required User Users { get; set; }
-        public required Company Companies { get; set; }
-        public required Application Applications { get; set; }
+        public  User? Users { get; set; }
+        public  Company? Companies { get; set; }
+        public  Application? Applications { get; set; }
         public string? Content { get; set; }
         public long? Applied { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;

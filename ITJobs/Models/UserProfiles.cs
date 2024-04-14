@@ -3,7 +3,7 @@
     public class UserProfiles
     {
         public long Id { get; set; }
-        public required User User { get; set; }
+        public  User? User { get; set; }
         public string FullName { get; set; }
         public string? Avatar { get; set; }
         public required string Phone { get; set; }

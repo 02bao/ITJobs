@@ -4,14 +4,8 @@ using ITJobs.Models;
 
 namespace ITJobs.Repository
 {
-    public class CompanyRepository : ICompanyRepository
+    public class CompanyRepository(DataContext _context) : ICompanyRepository
     {
-        private readonly DataContext _context;
-
-        public CompanyRepository(DataContext context)
-        {
-            _context = context;
-        }
         public bool CreateNewCompany(Company_Create company, long userid)
         {
             User user = _context.Users.SingleOrDefault(s => s.Id == userid); // làm sao để xóa null ở đây

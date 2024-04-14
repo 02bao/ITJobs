@@ -7,9 +7,9 @@
         public required string Email { get; set; }
         public required string Password { get; set; }
         public required string Role { get; set; }
-        public required List<UserProfiles> UserProfiles { get; set; }
-        public required List<UserPost> UserPosts { get; set; }
-        public required List<Company> Companies { get; set; }
+        public  List<UserProfiles>? UserProfiles { get; set; }
+        public  List<UserPost>? UserPosts { get; set; }
+        public  List<Company>? Companies { get; set; }
     }
 
     public class User_Register

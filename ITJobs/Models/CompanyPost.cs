@@ -5,7 +5,7 @@ namespace ITJobs.Models
     public class CompanyPost
     {
         public long Id { get; set; }
-        public required Company Companies { get; set; }
+        public  Company? Companies { get; set; }
         public required string NamePost { get; set; }
         public required string Content { get; set; }
         public required string Location { get; set; }

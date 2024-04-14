@@ -3,8 +3,8 @@
     public class Job
     {
         public long Id { get; set; }
-        public required Company Companies { get; set; }
-        public required Category Categories { get; set; }
+        public  Company? Companies { get; set; }
+        public  Category? Categories { get; set; }
         public required string NameJob { get; set; }
         public required string Location { get; set; }
         public required string Position { get; set; }
