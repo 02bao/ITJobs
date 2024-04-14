@@ -55,4 +55,3 @@ public class CompanyPostController(
         return IsSuccess ? Ok() : BadRequest();
     }
 }
-}

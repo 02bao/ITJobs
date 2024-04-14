@@ -10,4 +10,5 @@ public class Review
     public long Like { get; set; } = 0;
     public long Dislike { get; set; } = 0;
     public int Rating { get; set; } = 0;
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 }

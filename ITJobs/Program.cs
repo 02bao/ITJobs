@@ -30,6 +30,7 @@ namespace ITJobs
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
             builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
