@@ -34,9 +34,24 @@ public class ReviewController(
     }
 
     [HttpGet("GetByUserId")]
-    public IActionResult GetByUserId(long UserId)
+    public IActionResult GetByUserId([FromQuery] long UserId)
     {
         List<ReviewDTO> Review = _mapper.Map<List<ReviewDTO>>(_reviewRepository.GetByUserId(UserId));
         return Ok(Review);
+    }
+
+    [HttpPut("Update")]
+    public IActionResult Update([FromBody] ReviewDTO _DTO)
+    {
+        var Review = _mapper.Map<Review>(_DTO);
+        bool IsSuccess = _reviewRepository.Update(Review);
+        return IsSuccess ? Ok() : BadRequest();
+    }
+
+    [HttpDelete("Delete")]
+    public IActionResult Delete(long Id)
+    {
+        bool IsSuccess = _reviewRepository.Delete(Id);
+        return IsSuccess ? Ok() : BadRequest();
     }
 }

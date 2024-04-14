@@ -30,7 +30,11 @@ public class ReviewRepository(DataContext _context) : IReviewRepository
 
     public bool Delete(long Id)
     {
-        throw new NotImplementedException();
+        Review review = _context.Reviews.SingleOrDefault(s => s.Id == Id);
+        if(review == null) { return false; }
+        _context.Reviews.Remove(review);
+        _context.SaveChanges();
+        return true;
     }
 
     public ICollection<Review> GetAll()
@@ -65,6 +69,7 @@ public class ReviewRepository(DataContext _context) : IReviewRepository
 
     public bool Update(Review NewReview)
     {
-        throw new NotImplementedException();
+        _context.Reviews.Update(NewReview);
+        _context.SaveChanges(); return true;
     }
 }
