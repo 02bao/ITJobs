@@ -6,38 +6,45 @@ namespace ITJobs.Repository
 {
     public class ConverSationRepository(DataContext _context) : IConverSationRepository
     {
-        public Conversation CreateNewConverByUserId(long UserId, string CompanyName, string Subject, string Contents)
+        public Conversation_Create CreateNewConverByUserId(long UserId, string CompanyName, string Contents)
         {
+            Conversation_Create NewConver = new Conversation_Create();
+            List<Message_Create> NewMessage = new List<Message_Create>();
             Company companies = _context.Companies.SingleOrDefault(s => s.Name == CompanyName);
             if(companies == null) { return null; }
             User users = _context.Users.SingleOrDefault(s => s.Id == UserId);
-            var NewMessage = new Message()
-            {
-                SenderId = UserId,
-                Content = Contents,
-                Timestamp = DateTime.UtcNow,
-            };
             var ExistConver = _context.Conversations.SingleOrDefault(
                                                      s => s.Users.Id == UserId &&
                                                      s.Companies.Name == CompanyName);
             if(ExistConver != null) // Neu da ton tai cuoc tro chuyen cu
             {   //Add tin nhan moi vao cuoc tro chuyen cu 
-                ExistConver.Messages.Add(NewMessage);
-                ExistConver.LastTime = DateTime.UtcNow;
-                _context.SaveChanges();
-                return ExistConver;
-            }
-            Conversation NewConver = new Conversation()
-            {
-                Users = users,
-                Companies = companies,
-                LastTime = DateTime.UtcNow,
-                Status = Status_Conver.Active,
-                Messages = new List<Message> { NewMessage }
+                List<Message> Messages = ExistConver.Messages;
+                foreach(Message messages in Messages)
+                {
+                    Message_Create message = new Message_Create()
+                    {
+                        SenderName = messages.SenderName,
+                        Content = Contents,
+                        URL = messages.URL,
+                        Timestamp = DateTime.UtcNow,
+                    };
+                    NewMessage.Add(message);
+                }
                 
+                NewConver.Messages = NewMessage.ToList();
+                return NewConver;
+            }
+            Message_Create NewMessages = new Message_Create()
+            {
+                SenderName = users.UserName,
+                Content = Contents,
+                URL = "",
+                Timestamp = DateTime.UtcNow,
             };
-            _context.Conversations.Add(NewConver);
-            _context.SaveChanges();
+            NewConver.Messages = NewMessage;
+            NewConver.Messages.Add(NewMessages);
+            NewConver.Status = Status_Conver.Active;
+            NewConver.LastTime = DateTime.UtcNow;
             return NewConver;
         }
     }

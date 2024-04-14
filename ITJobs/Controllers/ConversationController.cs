@@ -11,9 +11,9 @@ public class ConversationController(
     IMapper _mapper) : ControllerBase
 {
     [HttpPost("CreateNewConverByUser")]
-    public IActionResult CreateNewConverByUser(long UserId , string CompanyName, string Subjects, string Contents)
+    public IActionResult CreateNewConverByUser(long UserId , string CompanyName, string Contents)
     {
-        Conversation NewConver = _converSationRepository.CreateNewConverByUserId(UserId, CompanyName, Subjects, Contents);
+        Conversation_Create NewConver = _converSationRepository.CreateNewConverByUserId(UserId, CompanyName, Contents);
         return Ok(NewConver);
     }
 }

@@ -4,7 +4,7 @@ namespace ITJobs.Interface
 {
     public interface IConverSationRepository
     {
-        Conversation CreateNewConverByUserId(long UserId, string CompanyName, string Subject, string Contents);
+        Conversation_Create CreateNewConverByUserId(long UserId, string CompanyName, string Contents);
 
     }
 }
