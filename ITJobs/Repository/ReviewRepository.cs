@@ -45,7 +45,22 @@ public class ReviewRepository(DataContext _context) : IReviewRepository
 
     public List<Review> GetByUserId(long UserId)
     {
-        throw new NotImplementedException();
+        List<Review> respone = new List<Review>();
+        var user = _context.Reviews.Where(s => s.Users.Id == UserId).ToList();
+        if(user == null) { return respone; }
+        foreach(var item in user)
+        {
+            respone.Add(new Review() 
+            { 
+                Title = item.Title,
+                Comment = item.Comment,
+                Like = item.Like,
+                Dislike = item.Dislike,
+                Rating = item.Rating,
+                Timestamp = item.Timestamp,
+            });
+        }
+        return respone;
     }
 
     public bool Update(Review NewReview)

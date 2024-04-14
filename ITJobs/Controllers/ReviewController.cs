@@ -32,4 +32,11 @@ public class ReviewController(
         var Review = _mapper.Map<ReviewDTO>(_reviewRepository.GetById(Id));
         return Ok(Review);
     }
+
+    [HttpGet("GetByUserId")]
+    public IActionResult GetByUserId(long UserId)
+    {
+        List<ReviewDTO> Review = _mapper.Map<List<ReviewDTO>>(_reviewRepository.GetByUserId(UserId));
+        return Ok(Review);
+    }
 }
