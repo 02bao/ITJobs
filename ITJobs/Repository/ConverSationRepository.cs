@@ -11,19 +11,19 @@ namespace ITJobs.Repository
             Company companies = _context.Companies.SingleOrDefault(s => s.Name == CompanyName);
             if(companies == null) { return null; }
             User users = _context.Users.SingleOrDefault(s => s.Id == UserId);
+            var NewMessage = new Message()
+            {
+                SenderId = UserId,
+                Content = Contents,
+                Timestamp = DateTime.UtcNow,
+            };
             var ExistConver = _context.Conversations.SingleOrDefault(
                                                      s => s.Users.Id == UserId &&
                                                      s.Companies.Name == CompanyName);
             if(ExistConver != null) // Neu da ton tai cuoc tro chuyen cu
             {   //Add tin nhan moi vao cuoc tro chuyen cu 
-                ExistConver.Messages.Add(
-                    new Message
-                    {
-                        SenderId = UserId,
-                        Content  = Contents,
-                        Timestamp = DateTime.UtcNow
-                });
-                 ExistConver.LastTime = DateTime.UtcNow;
+                ExistConver.Messages.Add(NewMessage);
+                ExistConver.LastTime = DateTime.UtcNow;
                 _context.SaveChanges();
                 return ExistConver;
             }
@@ -33,15 +33,8 @@ namespace ITJobs.Repository
                 Companies = companies,
                 LastTime = DateTime.UtcNow,
                 Status = Status_Conver.Active,
-                Messages = new List<Message>()
-                {
-                    new Message
-                    {
-                        SenderId = UserId,
-                        Content = Contents,
-                        Timestamp = DateTime.UtcNow
-                    }
-                }
+                Messages = new List<Message> { NewMessage }
+                
             };
             _context.Conversations.Add(NewConver);
             _context.SaveChanges();
