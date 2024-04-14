@@ -18,4 +18,18 @@ public class ReviewController(
         bool IsSuccess = _reviewRepository.CreateNewReview(UserId, CompanyName, Review);
         return IsSuccess ? Ok(): BadRequest();
     }
+
+    [HttpGet("GetAll")]
+    public IActionResult GettAll()
+    {
+        var Review = _mapper.Map<List<ReviewDTO>>(_reviewRepository.GetAll());
+        return Ok(Review);
+    }
+
+    [HttpGet("GetById")]
+    public IActionResult GetById(long Id)
+    {
+        var Review = _mapper.Map<ReviewDTO>(_reviewRepository.GetById(Id));
+        return Ok(Review);
+    }
 }

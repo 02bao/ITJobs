@@ -9,7 +9,7 @@ namespace ITJobs.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class User(
+public class UserController(
     IUserRepository _userRepository,
     IMapper _mapper) : ControllerBase
 {
@@ -42,13 +42,13 @@ public class User(
 
     }
 
-    //[HttpPut("Update")]
-    //public IActionResult Update( [FromBody] UserDTO _DTO)
-    //{
-    //    var NewUser = _mapper.Map<User>(_DTO);
-    //    bool IsSuccess = _userRepository.Update(NewUser);
-    //    return IsSuccess ? Ok() : BadRequest();
-    //}
+    [HttpPut("Update")]
+    public IActionResult Update([FromBody] UserDTO _DTO)
+    {
+        User user = _mapper.Map<User>(_DTO);
+        bool IsSuccess = _userRepository.Update(user);
+        return IsSuccess ? Ok() : BadRequest();
+    }
 
     [HttpDelete("Delete")]
     public IActionResult Delete(long userid)

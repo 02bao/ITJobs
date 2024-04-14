@@ -28,7 +28,27 @@ public class ReviewRepository(DataContext _context) : IReviewRepository
         return true;
     }
 
+    public bool Delete(long Id)
+    {
+        throw new NotImplementedException();
+    }
+
     public ICollection<Review> GetAll()
+    {
+        return _context.Reviews.ToList();
+    }
+
+    public Review GetById(long Id)
+    {
+        return _context.Reviews.SingleOrDefault(s => s.Id == Id);
+    }
+
+    public List<Review> GetByUserId(long UserId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Update(Review NewReview)
     {
         throw new NotImplementedException();
     }
