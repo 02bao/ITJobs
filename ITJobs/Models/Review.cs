@@ -12,3 +12,11 @@ public class Review
     public int Rating { get; set; } = 0;
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 }
+
+public class Review_Create
+{
+    public string Title { get; set; } = string.Empty;
+    public required string Comment { get; set; }
+    public int Rating { get; set; } = 0;
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+}

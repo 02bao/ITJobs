@@ -32,6 +32,8 @@ namespace ITJobs.Mapper
             CreateMap<NotificationDTO, Notification>();
             CreateMap<Review, ReviewDTO>();
             CreateMap<ReviewDTO, Review>();
+            CreateMap<ReviewDTO_Create, Review_Create>();
+            CreateMap<Review_Create, ReviewDTO_Create>();
         }
     }
 }

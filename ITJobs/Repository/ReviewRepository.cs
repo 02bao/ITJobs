@@ -6,7 +6,7 @@ namespace ITJobs.Repository;
 
 public class ReviewRepository(DataContext _context) : IReviewRepository
 {
-    public bool CreateNewReview(long UserId, string CompanyName, Review News)
+    public bool CreateNewReview(long UserId, string CompanyName, Review_Create News)
     {
         User user = _context.Users.SingleOrDefault( s => s.Id == UserId );
         if (user == null) { return false; }

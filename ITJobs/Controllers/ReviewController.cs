@@ -12,9 +12,9 @@ public class ReviewController(
     IMapper _mapper) : ControllerBase
 {
     [HttpPost("CreateNewReview")]
-    public IActionResult CreateNewReview(long UserId, string CompanyName , [FromBody] ReviewDTO _DTO)
+    public IActionResult CreateNewReview(long UserId, string CompanyName , [FromBody] ReviewDTO_Create _DTO)
     {
-        Review Review = _mapper.Map<Review>(_DTO);
+        Review_Create Review = _mapper.Map<Review_Create>(_DTO);
         bool IsSuccess = _reviewRepository.CreateNewReview(UserId, CompanyName, Review);
         return IsSuccess ? Ok(): BadRequest();
     }
