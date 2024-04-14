@@ -4,75 +4,55 @@ using ITJobs.Interface;
 using ITJobs.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITJobs.Controllers
+namespace ITJobs.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class CompanyPostController(
+    ICompanyPostRepository _companyPostRepository, 
+    IMapper _mapper) : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CompanyPostController : ControllerBase
+    [HttpPost("CreateNewPost")]
+    public IActionResult CreateNewPost(long companyid, CompanyPost_Create create, DateTime experiation )
     {
-        private readonly ICompanyPostRepository _companyPostRepository;
-        private readonly IMapper _mapper;
-
-        public CompanyPostController(ICompanyPostRepository companyPostRepository, IMapper mapper)
-        {
-            _companyPostRepository = companyPostRepository;
-            _mapper = mapper;
-        }
-
-        [HttpPost("CreateNewPost")]
-        public IActionResult CreateNewPost(long companyid, CompanyPost_Create create, DateTime experiation )
-        {
-            bool tmp = _companyPostRepository.CreateNewPost(companyid, create, experiation);
-            if(tmp)
-            {
-                return Ok("Create New Post Successfully");
-            }
-            return BadRequest("Create Failed, Please try again!");
-        }
-
-        [HttpGet("GetAll")]
-        public IActionResult GetAll()
-        {
-            var posts = _mapper.Map<List<CompanyPostDTO>>(_companyPostRepository.GetAll()); 
-            return Ok(posts);
-        }
-
-        [HttpGet("GetById")]
-        public IActionResult GetById(long id)
-        {
-            var post = _mapper.Map<CompanyPostDTO>(_companyPostRepository.GetById(id));
-            return Ok(post);
-        }
-
-        [HttpGet("GetByCompanyId")]
-        public IActionResult GetByCompanyId([FromQuery] long companyid)
-        { 
-            var post = _mapper.Map<List<CompanyPostDTO>>(_companyPostRepository.GetByCompanyId(companyid));
-            return Ok(post);
-        }
-
-        [HttpPut("Update")]
-        public IActionResult Update([FromForm] CompanyPostDTO _DTO,[FromForm] List<IFormFile> images)
-        {
-            var posts = _mapper.Map<CompanyPost>(_DTO);
-            bool tmp = _companyPostRepository.Update(posts, images);
-            if(tmp)
-            {
-                return Ok("Update Successfully");
-            }
-            return BadRequest("Update Failed, Please try again!");
-
-        }
-
-        [HttpDelete("Delete")]
-        public IActionResult Delete(long postid)
-        {
-            bool tmp = _companyPostRepository.Delete(postid);
-            if(tmp)
-            {
-                return Ok("Delete Successfully");
-            }
-            return BadRequest("Delete Failed, Please try again!");
-        }
+        bool IsSuccess = _companyPostRepository.CreateNewPost(companyid, create, experiation);
+        return IsSuccess ? Ok() : BadRequest();
     }
+
+    [HttpGet("GetAll")]
+    public IActionResult GetAll()
+    {
+        List<CompanyPostDTO> posts = _mapper.Map<List<CompanyPostDTO>>(_companyPostRepository.GetAll()); 
+        return Ok(posts);
+    }
+
+    [HttpGet("GetById")]
+    public IActionResult GetById(long id)
+    {
+        CompanyPostDTO post = _mapper.Map<CompanyPostDTO>(_companyPostRepository.GetById(id));
+        return Ok(post);
+    }
+
+    [HttpGet("GetByCompanyId")]
+    public IActionResult GetByCompanyId([FromQuery] long companyid)
+    {
+        List<CompanyPostDTO> post = _mapper.Map<List<CompanyPostDTO>>(_companyPostRepository.GetByCompanyId(companyid));
+        return Ok(post);
+    }
+
+    [HttpPut("Update")]
+    public IActionResult Update([FromForm] CompanyPostDTO _DTO,[FromForm] List<IFormFile> images)
+    {
+        CompanyPost posts = _mapper.Map<CompanyPost>(_DTO);
+        bool IsSuccess = _companyPostRepository.Update(posts, images);
+        return IsSuccess ? Ok() : BadRequest();
+    }
+
+    [HttpDelete("Delete")]
+    public IActionResult Delete(long postid)
+    {
+        bool IsSuccess = _companyPostRepository.Delete(postid);
+        return IsSuccess ? Ok() : BadRequest();
+    }
+}
 }

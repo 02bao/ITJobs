@@ -8,27 +8,15 @@ namespace ITJobs.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CategoryController : ControllerBase
+public class CategoryController(
+    ICategoryRepository _categoryRepository, 
+    IMapper _mapper) : ControllerBase
 {
-    // kỹ thuật Dependency Injection
-    private readonly ICategoryRepository _categoryRepository;
-    private readonly IMapper _mapper;
-    // constructor
-    public CategoryController(ICategoryRepository categoryRepository, IMapper mapper)
-    {
-        _categoryRepository = categoryRepository;
-        _mapper = mapper;
-    }
-
     [HttpPost("CreateNewCategory")]
     public IActionResult CreateNewCategory(long companyid, Category_Create category)
     {
-        bool tmp = _categoryRepository.CreateNewCategory(companyid, category);
-        if (tmp)
-        {
-            return Ok("Create New Category Successfully");
-        }
-        return BadRequest("Create Failed, Please try again!");
+        bool IsSuccess = _categoryRepository.CreateNewCategory(companyid, category);
+        return IsSuccess ? Ok() : BadRequest();
     }
 
     [HttpGet("GetList")]
@@ -41,21 +29,21 @@ public class CategoryController : ControllerBase
     [HttpGet("GetById")]
     public IActionResult GetById(long id)
     {
-        var categories = _mapper.Map<CategoryDTO>(_categoryRepository.GetById(id));
+        CategoryDTO categories = _mapper.Map<CategoryDTO>(_categoryRepository.GetById(id));
         return Ok(categories);
     }
 
     [HttpGet("GetByCompanyId")]
     public IActionResult GetByCompanyId(long companyid)
     {
-        var categories = _mapper.Map<List<CategoryDTO>>(_categoryRepository.GetByCompanyId(companyid));
+        List<CategoryDTO> categories = _mapper.Map<List<CategoryDTO>>(_categoryRepository.GetByCompanyId(companyid));
         return Ok(categories);
     }
 
     [HttpPut("Update")]
     public IActionResult Update([FromBody] CategoryDTO _DTO)
     {
-        var categories = _mapper.Map<Category>(_DTO);
+        Category categories = _mapper.Map<Category>(_DTO);
         bool tmp = _categoryRepository.Update(categories);
         if (tmp)
         {
@@ -67,11 +55,7 @@ public class CategoryController : ControllerBase
     [HttpDelete("Delete")]
     public IActionResult Delete(long id)
     {
-        bool tmp = _categoryRepository.Delete(id);
-        if (tmp)
-        {
-            return Ok("Delete Successfully");
-        }
-        return BadRequest("Delete Failed, Please try again!");
+        bool IsSuccess = _categoryRepository.Delete(id);
+        return IsSuccess ? Ok() : BadRequest();
     }
 }

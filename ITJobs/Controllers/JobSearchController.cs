@@ -4,40 +4,32 @@ using ITJobs.Interface;
 using ITJobs.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITJobs.Controllers
+namespace ITJobs.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class JobSearchController(
+    IJobSearchRepository _jobSearchRepository, 
+    IMapper _mapper) : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class JobSearchController : ControllerBase
+    [HttpPost("JobSearch")]
+    public IActionResult JobSearch(long userid, JobDesired job)
     {
-        private readonly IJobSearchRepository _jobSearchRepository;
-        private readonly IMapper _mapper;
+        List<CompanyPost> search = _jobSearchRepository.SearchForUser(userid, job);
+        return Ok(search);
+    }
 
-        public JobSearchController(IJobSearchRepository jobSearchRepository , IMapper mapper)
-        {
-            _jobSearchRepository = jobSearchRepository;
-            _mapper = mapper;
-        }
+    [HttpGet("GetAll")]
+    public IActionResult GetList()
+    {
+        List<JobSearchDTO> job = _mapper.Map<List<JobSearchDTO>>(_jobSearchRepository.GetAll());
+        return Ok(job);
+    }
 
-        [HttpPost("JobSearch")]
-        public IActionResult JobSearch(long userid, JobDesired job)
-        {
-            var search = _jobSearchRepository.SearchForUser(userid, job);
-            return Ok(search);
-        }
-
-        [HttpGet("GetAll")]
-        public IActionResult GetList()
-        {
-            var job = _mapper.Map<List<JobSearchDTO>>(_jobSearchRepository.GetAll());
-            return Ok(job);
-        }
-
-        [HttpGet("GetById")]
-        public IActionResult GetById(long id)
-        {
-            var job = _mapper.Map<JobSearchDTO>(_jobSearchRepository.GetById(id));
-            return Ok(job);
-        }
+    [HttpGet("GetById")]
+    public IActionResult GetById(long id)
+    {
+        var job = _mapper.Map<JobSearchDTO>(_jobSearchRepository.GetById(id));
+        return Ok(job);
     }
 }

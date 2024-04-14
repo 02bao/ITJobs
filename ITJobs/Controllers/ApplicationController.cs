@@ -18,15 +18,11 @@ public class ApplicationController(
     // viết hoa chữ cái đầu của các tham số nha anh
     // ví dụ: UserId, JobId, ResumeId
     {
-        bool tmp = _applicationRepository.AddNewApply(userid, jobid, resumeid);
+        bool IsSuccess = _applicationRepository.AddNewApply(userid, jobid, resumeid);
         // hồi xưa tôi hay đặt tmp là temporary, nghĩa là tạm thời
         // nhưng mà nó không rõ ràng lắm, anh nên đặt tên biến rõ ràng hơn
         // ví dụ: IsSuccess, IsSuccessful, IsAdded, ...
-        if (tmp) // ở đây nên đổi thành IsSuccess
-        {
-            return Ok("Apply Successfully, Please wait Company response");
-        }
-        return BadRequest("Apply Failed, Please try again!");
+        return IsSuccess ? Ok() : BadRequest();
 
         // rồi thay vì anh viết 2 dòng return như này
         // anh có thể viết gọn lại thành 1 dòng như sau
@@ -47,7 +43,7 @@ public class ApplicationController(
     [HttpGet("GetAll")]
     public IActionResult GetAll()
     {// cách khai báo nặc danh
-        var applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetAll());
+        List<ApplicationDTO> applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetAll());
         //List<ApplicationDTO> applications = _mapper.Map<List<ApplicationDTO>>(_applicationRepository.GetAll());
         // hồi xưa tôi hay dùng var vì thấy nó ngắn gọn, nhưng mà vừa rồi tôi thấy nó sẽ làm chậm 1 chút xíu quá trình chạy
         // nên là recommend anh viết cụ thể ra nhé
