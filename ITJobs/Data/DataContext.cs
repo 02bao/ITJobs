@@ -21,6 +21,8 @@ namespace ITJobs.Data
         public DbSet<Application> Applications { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
 
         public static string configsql = "Host=localhost:5432;Database=ITJobs;Username=postgres;Password=postgres";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
