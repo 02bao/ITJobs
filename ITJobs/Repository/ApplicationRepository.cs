@@ -112,7 +112,7 @@ public class ApplicationRepository(DataContext _context) : IApplicationRepositor
 
     public List<Application> GetByUserId(long userid)
     {
-        List<Application> response = new();
+        List<Application> response = new List<Application>();
         var users = _context.Applications.Where(s => s.Users.Id == userid).ToList();
         if (users == null)
         {
