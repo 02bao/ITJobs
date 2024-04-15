@@ -31,4 +31,11 @@ public class ConversationController(
         var conver = _mapper.Map<List<Conversation_GetDTO>>(_converSationRepository.GetByUserId(UserId));
         return Ok(conver);
     }
+
+    [HttpGet("GetByCompanyId")]
+    public IActionResult GetByCompanyId([FromQuery] long CompanyId)
+    {
+        var conver = _mapper.Map<List<Conversation_GetDTO>>(_converSationRepository.GetByCompanyid(CompanyId));
+        return Ok(conver);
+    }
 }
