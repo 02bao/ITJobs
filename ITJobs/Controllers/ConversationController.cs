@@ -13,7 +13,7 @@ public class ConversationController(
     [HttpPost("CreateNewConverByUser")]
     public IActionResult CreateNewConverByUser(long UserId , string CompanyName, string Contents)
     {
-        Conversation_Create NewConver = _converSationRepository.CreateNewConverByUserId(UserId, CompanyName, Contents);
-        return Ok(NewConver);
+        bool IsSuccess = _converSationRepository.CreateNewConverByUser(UserId, CompanyName, Contents);
+        return IsSuccess ? Ok() : BadRequest();
     }
 }

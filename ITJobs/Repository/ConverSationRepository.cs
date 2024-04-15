@@ -1,51 +1,106 @@
 ﻿using ITJobs.Data;
 using ITJobs.Interface;
 using ITJobs.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace ITJobs.Repository
 {
     public class ConverSationRepository(DataContext _context) : IConverSationRepository
     {
-        public Conversation_Create CreateNewConverByUserId(long UserId, string CompanyName, string Contents)
+        public bool CreateNewConverByCompany(long Companied, string UserName, string Contents)
         {
-            Conversation_Create NewConver = new Conversation_Create();
-            List<Message_Create> NewMessage = new List<Message_Create>();
-            Company companies = _context.Companies.SingleOrDefault(s => s.Name == CompanyName);
-            if(companies == null) { return null; }
-            User users = _context.Users.SingleOrDefault(s => s.Id == UserId);
-            var ExistConver = _context.Conversations.SingleOrDefault(
-                                                     s => s.Users.Id == UserId &&
-                                                     s.Companies.Name == CompanyName);
-            if(ExistConver != null) // Neu da ton tai cuoc tro chuyen cu
-            {   //Add tin nhan moi vao cuoc tro chuyen cu 
-                List<Message> Messages = ExistConver.Messages;
-                foreach(Message messages in Messages)
-                {
-                    Message_Create message = new Message_Create()
-                    {
-                        SenderName = messages.SenderName,
-                        Content = Contents,
-                        URL = messages.URL,
-                        Timestamp = DateTime.UtcNow,
-                    };
-                    NewMessage.Add(message);
-                }
-                
-                NewConver.Messages = NewMessage.ToList();
-                return NewConver;
-            }
-            Message_Create NewMessages = new Message_Create()
+            User user = _context.Users.SingleOrDefault(x => x.UserName == UserName);
+            if (user == null) { return false; }
+            Company company = _context.Companies.SingleOrDefault(s => s.Id == Companied);
+            if (company == null) { return false; }
+            var ExistConver = _context.Conversations.Include(s => s.Messages).Where(
+                                                           x => x.Company.Id == Companied &&
+                                                           x.User.UserName == UserName).FirstOrDefault();
+            if (ExistConver != null)
             {
-                SenderName = users.UserName,
-                Content = Contents,
-                URL = "",
-                Timestamp = DateTime.UtcNow,
+                ExistConver.Messages.Add(new Message()
+                {
+                    SenderName = company.Name,
+                    Content = Contents,
+                    Timestamp = DateTime.UtcNow,
+                    URL = "",
+                    Conversations = ExistConver,
+                });
+
+                ExistConver.LastTime = DateTime.UtcNow;
+                ExistConver.Status = Status_Conver.Active;
+                _context.SaveChanges();
+                return true;
+
+            }
+            Conversation NewConver = new Conversation()
+            {
+                User = user,
+                Company = company,
+                LastTime = DateTime.UtcNow,
+                Status = Status_Conver.Active,
+                Messages = new List<Message>()
+                {
+                    new Message
+                    {
+                        SenderName = company.Name,
+                        Content = Contents,
+                        Timestamp = DateTime.UtcNow,
+                        URL="",
+                    }
+                }
             };
-            NewConver.Messages = NewMessage;
-            NewConver.Messages.Add(NewMessages);
-            NewConver.Status = Status_Conver.Active;
-            NewConver.LastTime = DateTime.UtcNow;
-            return NewConver;
+            _context.Conversations.Add(NewConver);
+            _context.SaveChanges();
+            return true;
+        }
+        public bool CreateNewConverByUser(long UserId, string CompanyName, string Contents)
+        {
+            User user = _context.Users.SingleOrDefault(x => x.Id == UserId);
+            if (user == null) { return false; }
+            Company company = _context.Companies.SingleOrDefault( s => s.Name == CompanyName );
+            if (company == null) { return false; }
+            var ExistConver = _context.Conversations.Include(s => s.Messages).Where( 
+                                                           x => x.User.Id == UserId &&
+                                                           x.Company.Name == CompanyName).FirstOrDefault();
+            if(ExistConver != null)
+            {
+                ExistConver.Messages.Add(new Message()
+                    {
+                        SenderName = user.UserName,
+                        Content = Contents,
+                        Timestamp = DateTime.UtcNow,
+                        URL = "",
+                        Conversations = ExistConver,
+                    });
+                
+                ExistConver.LastTime = DateTime.UtcNow;
+                ExistConver.Status = Status_Conver.Active;
+                _context.SaveChanges();
+                return true;
+                
+            }
+            Conversation NewConver = new Conversation()
+            {
+                User = user,
+                Company = company,
+                LastTime = DateTime.UtcNow,
+                Status = Status_Conver.Active,
+                Messages = new List<Message>()
+                {
+                    new Message
+                    {
+                        SenderName = user.UserName,
+                        Content = Contents,
+                        Timestamp = DateTime.UtcNow,
+                        URL="",
+                    }
+                }
+            };
+            _context.Conversations.Add(NewConver);
+            _context.SaveChanges();
+            return true;
         }
     }
 }
