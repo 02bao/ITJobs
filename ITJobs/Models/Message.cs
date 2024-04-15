@@ -9,9 +9,9 @@ public class Message
     public DateTime? Timestamp { get; set; } = DateTime.UtcNow; // thoi gian bat dau cuoc tro chuyen
     public string URL { get; set; } = string.Empty;
 }
-public class Message_Create
+public class Message_Get
 {
-    public string SenderName { get; set; } //id cua nguoi gui
+    public string SenderName { get; set; } //ten cua doi tuong gui
     public string Content { get; set; } = string.Empty;
     public DateTime? Timestamp { get; set; } = DateTime.UtcNow; // thoi gian bat dau cuoc tro chuyen
     public string URL { get; set; } = "";

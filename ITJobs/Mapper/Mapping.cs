@@ -34,6 +34,16 @@ namespace ITJobs.Mapper
             CreateMap<ReviewDTO, Review>();
             CreateMap<ReviewDTO_Create, Review_Create>();
             CreateMap<Review_Create, ReviewDTO_Create>();
+            CreateMap<Conversation, ConversationDTO>();
+            CreateMap<ConversationDTO, Conversation>();
+            CreateMap<Message, MessageDTO>();
+            CreateMap<MessageDTO, Message>();
+            CreateMap<Conversation_Get, Conversation_GetDTO>();
+            CreateMap<Conversation_GetDTO, Conversation_Get>();
+            CreateMap<Message_Get, Message_GetDTO>();
+            CreateMap<Message_GetDTO, Message_Get>();
+
+
         }
     }
 }

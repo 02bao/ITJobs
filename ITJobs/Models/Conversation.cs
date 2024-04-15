@@ -18,9 +18,10 @@ public enum Status_Conver
     Pending
 }
 
-public class Conversation_Create
+public class Conversation_Get
 {
-    public List<Message_Create> Messages { get; set; }
+    public long Id { get; set; }
+    public List<Message_Get> Messages { get; set; }
     public Status_Conver Status { get; set; } = Status_Conver.Active;
-    public DateTime LastTime { get; set; } = DateTime.UtcNow; // thoi gian ket thuc cuoc tro chuyen 
+    public DateTime? LastTime { get; set; } = DateTime.UtcNow; // thoi gian ket thuc cuoc tro chuyen 
 }

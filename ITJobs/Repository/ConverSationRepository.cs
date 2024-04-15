@@ -102,5 +102,35 @@ namespace ITJobs.Repository
             _context.SaveChanges();
             return true;
         }
+
+        public List<Conversation_Get> GetByUserId(long UserId)
+        {
+            List<Conversation_Get> Convers = new List<Conversation_Get>();
+            var convers = _context.Conversations.Include(s => s.Messages)
+                                                .Where(s => s.User.Id == UserId).ToList();
+            if(convers == null) { return  Convers; }
+            foreach(var conver in convers )
+            {
+                List<Message_Get> messages = new List<Message_Get>();
+                foreach(var message in conver.Messages)
+                {
+                    messages.Add(new Message_Get
+                    {
+                        SenderName = message.SenderName,
+                        Content = message.Content,
+                        Timestamp = message.Timestamp,
+                        URL = message.URL,
+                    });
+                }
+                Convers.Add(new Conversation_Get()
+                {
+                    Id = conver.Id,
+                    Status = conver.Status,
+                    LastTime = conver.LastTime,
+                    Messages = messages,
+                });
+            }
+            return Convers;
+        }
     }
 }
